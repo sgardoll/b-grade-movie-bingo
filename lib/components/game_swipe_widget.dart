@@ -85,253 +85,238 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Stack(
-        children: [
-          Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
-              child: Material(
-                color: Colors.transparent,
-                elevation: 6.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
+    return Align(
+      alignment: AlignmentDirectional(0.0, 0.0),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+        child: InkWell(
+          splashColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () async {
+            _model.updatePage(() {
+              _model.isSelected = true;
+            });
+            if (animationsMap['imageOnActionTriggerAnimation'] != null) {
+              animationsMap['imageOnActionTriggerAnimation']!
+                  .controller
+                  .forward(from: 0.0);
+            }
+            FFAppState().update(() {
+              FFAppState().gameSelected = widget.gameRef;
+              FFAppState().gameIsSelected = true;
+            });
+          },
+          child: Material(
+            color: Colors.transparent,
+            elevation: 6.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+            child: Container(
+              width: 400.0,
+              height: 265.0,
+              constraints: BoxConstraints(
+                maxWidth: 400.0,
+              ),
+              decoration: BoxDecoration(
+                color: valueOrDefault<Color>(
+                  widget.color,
+                  FlutterFlowTheme.of(context).secondary,
                 ),
-                child: Container(
-                  width: 400.0,
-                  height: 265.0,
-                  constraints: BoxConstraints(
-                    maxWidth: 400.0,
-                  ),
-                  decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 6.0,
                     color: valueOrDefault<Color>(
                       widget.color,
-                      FlutterFlowTheme.of(context).secondary,
+                      Color(0x31F5F5F5),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 6.0,
-                        color: valueOrDefault<Color>(
-                          widget.color,
-                          Color(0x31F5F5F5),
+                    offset: Offset(-4.0, 4.0),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: FutureBuilder<CardsRecord>(
+                future: CardsRecord.getDocumentOnce(widget.gameRef!),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: SpinKitRipple(
+                          color: FlutterFlowTheme.of(context).primary,
+                          size: 50.0,
                         ),
-                        offset: Offset(-4.0, 4.0),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: FutureBuilder<CardsRecord>(
-                    future: CardsRecord.getDocumentOnce(widget.gameRef!),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: SpinKitRipple(
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 50.0,
+                      ),
+                    );
+                  }
+                  final stackCardsRecord = snapshot.data!;
+                  return Stack(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0.0, -1.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25.0),
+                          child: Image.network(
+                            valueOrDefault<String>(
+                              widget.image,
+                              'https://www.connectio.com.au/grateful/loading.png',
                             ),
+                            width: 400.0,
+                            height: 265.0,
+                            fit: BoxFit.cover,
                           ),
-                        );
-                      }
-                      final stackCardsRecord = snapshot.data!;
-                      return Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0.0, -1.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25.0),
-                              child: Image.network(
-                                valueOrDefault<String>(
-                                  widget.image,
-                                  'https://www.connectio.com.au/grateful/loading.png',
-                                ),
-                                width: 400.0,
-                                height: 265.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ).animateOnActionTrigger(
-                              animationsMap['imageOnActionTriggerAnimation']!,
-                            ),
+                        ).animateOnActionTrigger(
+                          animationsMap['imageOnActionTriggerAnimation']!,
+                        ),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25.0),
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: MediaQuery.sizeOf(context).height * 1.0,
+                          constraints: BoxConstraints(
+                            maxWidth: 400.0,
+                            maxHeight: 265.0,
                           ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              _model.updatePage(() {
-                                _model.isSelected = true;
-                              });
-                              if (animationsMap[
-                                      'imageOnActionTriggerAnimation'] !=
-                                  null) {
-                                animationsMap['imageOnActionTriggerAnimation']!
-                                    .controller
-                                    .forward(from: 0.0);
-                              }
-                              FFAppState().update(() {
-                                FFAppState().gameSelected = widget.gameRef;
-                                FFAppState().gameIsSelected = true;
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25.0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: MediaQuery.sizeOf(context).height * 1.0,
-                                constraints: BoxConstraints(
-                                  maxWidth: 400.0,
-                                  maxHeight: 265.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(25.0),
-                                ),
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(25.0),
                           ),
-                          Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 16.0, 0.0, 0.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12.0),
-                                child: Container(
-                                  width: 44.0,
-                                  height: 44.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0x98FFFFFF),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Icon(
-                                    Icons.movie_sharp,
-                                    color: valueOrDefault<Color>(
-                                      widget.color,
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
+                          child: Align(
                             alignment: AlignmentDirectional(0.0, 1.0),
-                            child: ClipRRect(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 16.0, 0.0, 0.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Container(
+                              width: 44.0,
+                              height: 44.0,
+                              decoration: BoxDecoration(
+                                color: Color(0x98FFFFFF),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Icon(
+                                Icons.movie_sharp,
+                                color: valueOrDefault<Color>(
+                                  widget.color,
+                                  FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                size: 24.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(25.0),
+                            bottomRight: Radius.circular(25.0),
+                            topLeft: Radius.circular(0.0),
+                            topRight: Radius.circular(0.0),
+                          ),
+                          child: Container(
+                            width: 400.0,
+                            height: 75.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 24.0,
+                                  color: Colors.black,
+                                  offset: Offset(12.0, 0.0),
+                                )
+                              ],
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(25.0),
                                 bottomRight: Radius.circular(25.0),
                                 topLeft: Radius.circular(0.0),
                                 topRight: Radius.circular(0.0),
                               ),
-                              child: Container(
-                                width: 400.0,
-                                height: 75.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 24.0,
-                                      color: Colors.black,
-                                      offset: Offset(12.0, 0.0),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(25.0),
-                                    bottomRight: Radius.circular(25.0),
-                                    topLeft: Radius.circular(0.0),
-                                    topRight: Radius.circular(0.0),
-                                  ),
-                                ),
-                                alignment: AlignmentDirectional(0.0, 1.0),
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 0.0, 0.0),
-                                            child: AutoSizeText(
-                                              stackCardsRecord.gameName,
-                                              maxLines: 2,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLarge
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color: widget.color,
-                                                        letterSpacing: 0.2,
-                                                        lineHeight: 1.0,
-                                                      ),
-                                            ),
-                                          ),
+                            ),
+                            alignment: AlignmentDirectional(0.0, 1.0),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.0, 0.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 0.0, 0.0),
+                                        child: AutoSizeText(
+                                          stackCardsRecord.gameName,
+                                          maxLines: 2,
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleLarge
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                color: widget.color,
+                                                letterSpacing: 0.2,
+                                                lineHeight: 1.0,
+                                              ),
                                         ),
                                       ),
-                                      Flexible(
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(1.0, 0.0),
-                                          child: Container(
-                                            width: 44.0,
-                                            height: 44.0,
-                                            child: custom_widgets.SelectedIcon(
-                                              width: 44.0,
-                                              height: 44.0,
-                                              isSelected: _model.isSelected,
-                                              selectedColor: widget.color,
-                                              unselectedColor:
-                                                  Color(0x31F5F5F5),
-                                            ),
-                                          ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Align(
+                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      child: Container(
+                                        width: 44.0,
+                                        height: 44.0,
+                                        child: custom_widgets.SelectedIcon(
+                                          width: 44.0,
+                                          height: 44.0,
+                                          isSelected: _model.isSelected,
+                                          selectedColor: widget.color,
+                                          unselectedColor: Color(0x31F5F5F5),
                                         ),
                                       ),
-                                    ].addToEnd(SizedBox(width: 16.0)),
+                                    ),
                                   ),
-                                ),
+                                ].addToEnd(SizedBox(width: 16.0)),
                               ),
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
