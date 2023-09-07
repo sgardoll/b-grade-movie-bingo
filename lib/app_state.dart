@@ -59,11 +59,11 @@ class FFAppState extends ChangeNotifier {
     _gameIsSelected = _value;
   }
 
-  final _cardsQueryManager = StreamRequestManager<List<CardsRecord>>();
-  Stream<List<CardsRecord>> cardsQuery({
+  final _cardsQueryManager = FutureRequestManager<List<CardsRecord>>();
+  Future<List<CardsRecord>> cardsQuery({
     String? uniqueQueryKey,
     bool? overrideCache,
-    required Stream<List<CardsRecord>> Function() requestFn,
+    required Future<List<CardsRecord>> Function() requestFn,
   }) =>
       _cardsQueryManager.performRequest(
         uniqueQueryKey: uniqueQueryKey,

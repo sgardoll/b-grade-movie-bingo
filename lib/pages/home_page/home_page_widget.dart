@@ -202,9 +202,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                 ),
                                 Flexible(
-                                  child: StreamBuilder<List<CardsRecord>>(
-                                    stream: FFAppState().cardsQuery(
-                                      requestFn: () => queryCardsRecord(),
+                                  child: FutureBuilder<List<CardsRecord>>(
+                                    future: FFAppState().cardsQuery(
+                                      requestFn: () => queryCardsRecordOnce(),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -306,7 +306,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   },
                                                   effect: smooth_page_indicator
                                                       .ExpandingDotsEffect(
-                                                    expansionFactor: 3.0,
+                                                    expansionFactor: 4.0,
                                                     spacing: 8.0,
                                                     radius: 16.0,
                                                     dotWidth: 16.0,
