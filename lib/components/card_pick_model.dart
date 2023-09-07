@@ -1,13 +1,10 @@
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,13 +33,7 @@ class CardPickModel extends FlutterFlowModel {
 
   String? stopAudioTimerEnd;
   String? cancelAudioRec;
-  String? stopRecordForSubmit;
-  // Stores action output result for [Custom Action - getFileFromPath] action in Button widget.
-  FFUploadedFile? audioFile;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  String? stopAudioSubmit;
 
   /// Initialization and disposal methods.
 

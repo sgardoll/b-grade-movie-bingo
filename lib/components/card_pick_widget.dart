@@ -1,13 +1,10 @@
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -390,64 +387,17 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    _model.stopRecordForSubmit =
-                                        await _model.audioRecorder?.stop();
                                     if (isWeb) {
                                       Navigator.pop(context);
                                     } else {
-                                      _model.audioFile =
-                                          await actions.getFileFromPath(
-                                        _model.stopAudioTimerEnd != null &&
-                                                _model.stopAudioTimerEnd != ''
-                                            ? _model.stopAudioTimerEnd
-                                            : _model.stopRecordForSubmit,
-                                      );
-                                      {
-                                        setState(() =>
-                                            _model.isDataUploading = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-                                        var selectedFiles = <SelectedFile>[];
-                                        var downloadUrls = <String>[];
-                                        try {
-                                          selectedUploadedFiles = _model
-                                                  .audioFile!.bytes!.isNotEmpty
-                                              ? [_model.audioFile!]
-                                              : <FFUploadedFile>[];
-                                          selectedFiles =
-                                              selectedFilesFromUploadedFiles(
-                                            selectedUploadedFiles,
-                                          );
-                                          downloadUrls = (await Future.wait(
-                                            selectedFiles.map(
-                                              (f) async => await uploadData(
-                                                  f.storagePath, f.bytes),
-                                            ),
-                                          ))
-                                              .where((u) => u != null)
-                                              .map((u) => u!)
-                                              .toList();
-                                        } finally {
-                                          _model.isDataUploading = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                                selectedFiles.length &&
-                                            downloadUrls.length ==
-                                                selectedFiles.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile =
-                                                selectedUploadedFiles.first;
-                                            _model.uploadedFileUrl =
-                                                downloadUrls.first;
-                                          });
-                                        } else {
-                                          setState(() {});
-                                          return;
-                                        }
-                                      }
-
+                                      _model.stopAudioSubmit =
+                                          await _model.audioRecorder?.stop();
                                       Navigator.pop(
-                                          context, _model.uploadedFileUrl);
+                                          context,
+                                          _model.stopAudioTimerEnd != null &&
+                                                  _model.stopAudioTimerEnd != ''
+                                              ? _model.stopAudioTimerEnd
+                                              : _model.stopAudioSubmit);
                                     }
 
                                     setState(() {});

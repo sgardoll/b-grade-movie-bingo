@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'card_summary_model.dart';
 export 'card_summary_model.dart';
@@ -124,133 +124,29 @@ class _CardSummaryWidgetState extends State<CardSummaryWidget>
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                       ),
-                      child: Text(
-                        widget.cardText!,
-                        style: FlutterFlowTheme.of(context)
-                            .titleMedium
-                            .override(
-                              fontFamily: 'Manrope',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                      ),
                     ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: Visibility(
-                        visible: responsiveVisibility(
-                          context: context,
-                          phone: false,
-                          tablet: false,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ),
-                        child: Text(
-                          'at around ${dateTimeFormat(
-                            'relative',
-                            DateTime.fromMillisecondsSinceEpoch(widget
-                                    .gameStartedTimestamp!
-                                    .millisecondsSinceEpoch -
-                                widget.timestamp!.millisecondsSinceEpoch),
-                            locale: FFLocalizations.of(context).languageCode,
-                          )}',
-                          style: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .override(
-                                fontFamily: 'Manrope',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontWeight: FontWeight.normal,
-                              ),
+                    FlutterFlowAudioPlayer(
+                      audio: Audio.network(
+                        widget.audio!,
+                        metas: Metas(
+                          id: '2vqf7_-b99c54fa',
+                          title: widget.cardText,
                         ),
                       ),
+                      titleTextStyle: FlutterFlowTheme.of(context).titleLarge,
+                      playbackDurationTextStyle:
+                          FlutterFlowTheme.of(context).labelMedium,
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
+                      playbackButtonColor: FlutterFlowTheme.of(context).primary,
+                      activeTrackColor: FlutterFlowTheme.of(context).alternate,
+                      elevation: 4.0,
+                      playInBackground:
+                          PlayInBackground.disabledRestoreOnForeground,
                     ),
                   ],
                 ),
               ),
-              if (valueOrDefault<bool>(
-                _model.isPlaying == true ? true : false,
-                false,
-              ))
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    _model.soundPlayer?.stop();
-                    setState(() {
-                      _model.isPlaying = false;
-                    });
-                  },
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 4.0,
-                    shape: const CircleBorder(),
-                    child: Container(
-                      width: 36.0,
-                      height: 36.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x98FFFFFF),
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Icon(
-                        Icons.stop_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                    ),
-                  ),
-                ),
-              if (valueOrDefault<bool>(
-                _model.isPlaying == false ? true : false,
-                true,
-              ))
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    setState(() {
-                      _model.isPlaying = true;
-                    });
-                    _model.soundPlayer ??= AudioPlayer();
-                    if (_model.soundPlayer!.playing) {
-                      await _model.soundPlayer!.stop();
-                    }
-                    _model.soundPlayer!.setVolume(1.0);
-                    await _model.soundPlayer!
-                        .setUrl(widget.audio!)
-                        .then((_) => _model.soundPlayer!.play());
-
-                    setState(() {
-                      _model.isPlaying = false;
-                    });
-                  },
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 4.0,
-                    shape: const CircleBorder(),
-                    child: Container(
-                      width: 36.0,
-                      height: 36.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x98FFFFFF),
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                    ),
-                  ),
-                ),
             ]
                 .divide(SizedBox(width: 8.0))
                 .addToStart(SizedBox(width: 8.0))
