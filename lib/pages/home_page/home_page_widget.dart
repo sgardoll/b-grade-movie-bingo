@@ -127,6 +127,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
         FFAppState().gameSelected = null;
+        FFAppState().gameIsSelected = false;
       });
     });
 
