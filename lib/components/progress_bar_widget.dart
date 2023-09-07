@@ -93,7 +93,7 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
             alignment: AlignmentDirectional(0.0, 0.0),
             child: LinearPercentIndicator(
               percent: valueOrDefault<double>(
-                (double.tryParse(_model.timerValue) ?? 0) / 15,
+                1 - (double.tryParse(_model.timerValue) ?? 0) / 15,
                 0.0,
               ),
               width: 150.0,

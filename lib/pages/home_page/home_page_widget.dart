@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/game_swipe_widget.dart';
 import '/components/neon_sign_widget.dart';
@@ -356,14 +355,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         child: Builder(
                                           builder: (context) => FFButtonWidget(
                                             onPressed: () async {
-                                              GoRouter.of(context)
-                                                  .prepareAuthEvent();
-                                              final user = await authManager
-                                                  .signInAnonymously(context);
-                                              if (user == null) {
-                                                return;
-                                              }
-
                                               var playersRecordReference =
                                                   PlayersRecord.collection
                                                       .doc();
@@ -429,9 +420,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   5,
                                                 );
 
-                                                context.pushNamedAuth(
+                                                context.pushNamed(
                                                   'Start',
-                                                  context.mounted,
                                                   queryParameters: {
                                                     'joinCode': serializeParam(
                                                       _model.joinCode5Digits,
@@ -525,17 +515,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         ),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
-                                            final user = await authManager
-                                                .signInAnonymously(context);
-                                            if (user == null) {
-                                              return;
-                                            }
-
-                                            context.pushNamedAuth(
+                                            context.pushNamed(
                                               'join',
-                                              context.mounted,
                                               pathParameters: {
                                                 'joinCode': serializeParam(
                                                   'IIIII',

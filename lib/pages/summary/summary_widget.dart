@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/card_summary_widget.dart';
 import '/components/neon_sign_widget.dart';
@@ -174,17 +173,23 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                           final yourSelectionsItem =
                                               yourSelections[
                                                   yourSelectionsIndex];
-                                          return CardSummaryWidget(
-                                            key: Key(
-                                                'Keyocy_${yourSelectionsIndex}_of_${yourSelections.length}'),
-                                            cardText:
-                                                yourSelectionsItem.cardText,
-                                            audio: yourSelectionsItem.audioPath,
-                                            timestamp:
-                                                yourSelectionsItem.timestamp!,
-                                            gameStartedTimestamp:
-                                                summaryBeingPlayedRecord
-                                                    .timeStarted!,
+                                          return Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            child: CardSummaryWidget(
+                                              key: Key(
+                                                  'Keyocy_${yourSelectionsIndex}_of_${yourSelections.length}'),
+                                              cardText:
+                                                  yourSelectionsItem.cardText,
+                                              audio:
+                                                  yourSelectionsItem.audioPath,
+                                              timestamp:
+                                                  yourSelectionsItem.timestamp!,
+                                              gameStartedTimestamp:
+                                                  summaryBeingPlayedRecord
+                                                      .timeStarted!,
+                                            ),
                                           );
                                         },
                                       );
@@ -290,7 +295,14 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                                               'Hello World',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .titleLarge,
+                                                                  .titleMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Manrope',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
                                                             ),
                                                           );
                                                         },
@@ -324,15 +336,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                               flex: 2,
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  GoRouter.of(context)
-                                                      .prepareAuthEvent();
-                                                  await authManager.signOut();
-                                                  GoRouter.of(context)
-                                                      .clearRedirectLocation();
-
-                                                  context.goNamedAuth(
-                                                      'HomePage',
-                                                      context.mounted);
+                                                  context.goNamed('HomePage');
                                                 },
                                                 text: 'Home',
                                                 icon: Icon(

@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/card_pick_widget.dart';
 import '/components/neon_sign_widget.dart';
