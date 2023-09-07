@@ -32,37 +32,28 @@ class SelectedIcon extends StatefulWidget {
 }
 
 class _SelectedIconState extends State<SelectedIcon> {
-  bool isLiked = false;
-
-  @override
-  void initState() {
-    super.initState();
-    isLiked = widget.isSelected;
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (widget.isSelected) {
-      isLiked = true;
-    }
-
-    return Container(
-      width: widget.width,
-      height: widget.height,
+    return SizedBox(
+      width: widget.width ?? 44.0,
+      height: widget.height ?? 44.0,
       child: LikeButton(
-        size: widget.width ?? 30.0,
+        size: (widget.width ?? 44.0) -
+            4.0, // Reduce size to fit within the given dimensions
         likeBuilder: (bool isLiked) {
           return Icon(
             isLiked
                 ? Icons.check_circle_outline_rounded
                 : Icons.circle_outlined,
             color: isLiked
-                ? (widget.selectedColor ?? Colors.blue)
+                ? (widget.selectedColor ??
+                    FlutterFlowTheme.of(context).secondary)
                 : (widget.unselectedColor ?? Color(0x25666666)),
-            size: widget.width ?? 30.0,
+            size: (widget.width ?? 44.0) -
+                4.0, // Reduce size to fit within the given dimensions
           );
         },
-        isLiked: isLiked,
+        isLiked: widget.isSelected,
       ),
     );
   }
