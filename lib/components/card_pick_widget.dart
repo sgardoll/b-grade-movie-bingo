@@ -260,9 +260,13 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                                                   denominator !=
                                                                       0
                                                               ? denominator
-                                                              : 1);
-                                                }(_model.timerMilliseconds,
-                                                    (15000)),
+                                                              : 15000);
+                                                }(
+                                                    _model.timerMilliseconds,
+                                                    valueOrDefault<int>(
+                                                      15000,
+                                                      15000,
+                                                    )),
                                                 0.0,
                                               ),
                                               width: 150.0,
