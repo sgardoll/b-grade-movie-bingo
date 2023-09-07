@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/permissions_util.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -404,56 +403,6 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                       } else {
                                         _model.cutAudioRecAndDismiss =
                                             await _model.audioRecorder?.stop();
-                                        final selectedFiles = await selectFiles(
-                                          allowedExtensions: ['mp3'],
-                                          multiFile: false,
-                                        );
-                                        if (selectedFiles != null) {
-                                          setState(() =>
-                                              _model.isDataUploading = true);
-                                          var selectedUploadedFiles =
-                                              <FFUploadedFile>[];
-
-                                          try {
-                                            showUploadMessage(
-                                              context,
-                                              'Uploading file...',
-                                              showLoading: true,
-                                            );
-                                            selectedUploadedFiles =
-                                                selectedFiles
-                                                    .map((m) => FFUploadedFile(
-                                                          name: m.storagePath
-                                                              .split('/')
-                                                              .last,
-                                                          bytes: m.bytes,
-                                                        ))
-                                                    .toList();
-                                          } finally {
-                                            ScaffoldMessenger.of(context)
-                                                .hideCurrentSnackBar();
-                                            _model.isDataUploading = false;
-                                          }
-                                          if (selectedUploadedFiles.length ==
-                                              selectedFiles.length) {
-                                            setState(() {
-                                              _model.uploadedLocalFile =
-                                                  selectedUploadedFiles.first;
-                                            });
-                                            showUploadMessage(
-                                              context,
-                                              'Success!',
-                                            );
-                                          } else {
-                                            setState(() {});
-                                            showUploadMessage(
-                                              context,
-                                              'Failed to upload file',
-                                            );
-                                            return;
-                                          }
-                                        }
-
                                         Navigator.pop(context,
                                             _model.cutAudioRecAndDismiss);
                                       }
