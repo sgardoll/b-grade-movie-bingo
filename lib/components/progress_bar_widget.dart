@@ -132,7 +132,10 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Text(
               _model.timerValue,
-              style: FlutterFlowTheme.of(context).bodyMedium,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Manrope',
+                    color: Colors.transparent,
+                  ),
             ),
           ),
         ],
