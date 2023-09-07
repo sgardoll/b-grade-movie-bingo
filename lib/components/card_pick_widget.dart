@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -203,81 +204,54 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                         size: 20.0,
                                       ),
                                     ),
-                                    Container(
-                                      width: 150.0,
-                                      height: 36.0,
-                                      child: Stack(
-                                        children: [
-                                          FlutterFlowTimer(
-                                            initialTime:
-                                                _model.timerMilliseconds,
-                                            getDisplayTime: (value) =>
-                                                StopWatchTimer.getDisplayTime(
-                                              value,
-                                              hours: false,
-                                              minute: false,
-                                            ),
-                                            timer: _model.timerController,
-                                            updateStateInterval:
-                                                Duration(milliseconds: 500),
-                                            onChanged: (value, displayTime,
-                                                shouldUpdate) {
-                                              _model.timerMilliseconds = value;
-                                              _model.timerValue = displayTime;
-                                              if (shouldUpdate) setState(() {});
-                                            },
-                                            onEnded: () async {
-                                              _model.stopAudioTimerEnd =
-                                                  await _model.audioRecorder
-                                                      ?.stop();
-
-                                              setState(() {});
-                                            },
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.getFont(
-                                              'Outfit',
-                                              color: Colors.transparent,
-                                              fontSize: 1.0,
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 150.0,
-                                            height: 36.0,
-                                            decoration: BoxDecoration(
-                                              color: Colors.transparent,
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: LinearPercentIndicator(
-                                              percent: valueOrDefault<double>(
-                                                (int? timerMs,
-                                                        int denominator) {
-                                                  return (timerMs ?? 0) /
-                                                      (denominator != null &&
-                                                              denominator != 0
-                                                          ? denominator
-                                                          : 1);
-                                                }(_model.timerMilliseconds,
-                                                    (15000)),
-                                                0.0,
+                                    if (responsiveVisibility(
+                                      context: context,
+                                      phone: false,
+                                      tablet: false,
+                                      tabletLandscape: false,
+                                      desktop: false,
+                                    ))
+                                      Container(
+                                        width: 150.0,
+                                        height: 36.0,
+                                        child: Stack(
+                                          children: [
+                                            FlutterFlowTimer(
+                                              initialTime:
+                                                  _model.timerMilliseconds,
+                                              getDisplayTime: (value) =>
+                                                  StopWatchTimer.getDisplayTime(
+                                                value,
+                                                hours: false,
+                                                minute: false,
                                               ),
-                                              width: 150.0,
-                                              lineHeight: 36.0,
-                                              animation: false,
-                                              progressColor: Color(0xA323262B),
-                                              backgroundColor:
-                                                  Color(0x98FFFFFF),
-                                              barRadius: Radius.circular(12.0),
-                                              padding: EdgeInsets.zero,
+                                              timer: _model.timerController,
+                                              updateStateInterval:
+                                                  Duration(milliseconds: 500),
+                                              onChanged: (value, displayTime,
+                                                  shouldUpdate) {
+                                                _model.timerMilliseconds =
+                                                    value;
+                                                _model.timerValue = displayTime;
+                                                if (shouldUpdate)
+                                                  setState(() {});
+                                              },
+                                              onEnded: () async {
+                                                _model.stopAudioTimerEnd =
+                                                    await _model.audioRecorder
+                                                        ?.stop();
+
+                                                setState(() {});
+                                              },
+                                              textAlign: TextAlign.start,
+                                              style: GoogleFonts.getFont(
+                                                'Outfit',
+                                                color: Colors.transparent,
+                                                fontSize: 1.0,
+                                              ),
                                             ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(1.0, 0.0),
-                                            child: Container(
-                                              width: 38.0,
+                                            Container(
+                                              width: 150.0,
                                               height: 36.0,
                                               decoration: BoxDecoration(
                                                 color: Colors.transparent,
@@ -286,14 +260,61 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                               ),
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: Icon(
-                                                Icons.keyboard_voice_rounded,
-                                                color: widget.color,
-                                                size: 20.0,
+                                              child: LinearPercentIndicator(
+                                                percent: valueOrDefault<double>(
+                                                  (int? timerMs,
+                                                          int denominator) {
+                                                    return (timerMs ?? 0) /
+                                                        (denominator != null &&
+                                                                denominator != 0
+                                                            ? denominator
+                                                            : 1);
+                                                  }(_model.timerMilliseconds,
+                                                      (15000)),
+                                                  0.0,
+                                                ),
+                                                width: 150.0,
+                                                lineHeight: 36.0,
+                                                animation: false,
+                                                progressColor:
+                                                    Color(0xA323262B),
+                                                backgroundColor:
+                                                    Color(0x98FFFFFF),
+                                                barRadius:
+                                                    Radius.circular(12.0),
+                                                padding: EdgeInsets.zero,
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Container(
+                                                width: 38.0,
+                                                height: 36.0,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.0),
+                                                ),
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Icon(
+                                                  Icons.keyboard_voice_rounded,
+                                                  color: widget.color,
+                                                  size: 20.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    Container(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      child: custom_widgets.SoundRecordAndPlay(
+                                        width: 40.0,
+                                        height: 40.0,
                                       ),
                                     ),
                                   ].divide(SizedBox(width: 16.0)),

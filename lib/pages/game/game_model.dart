@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/permissions_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -29,6 +30,10 @@ class GameModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Card widget.
   String? cardAudio;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+
   // Model for NeonSign component.
   late NeonSignModel neonSignModel;
 
