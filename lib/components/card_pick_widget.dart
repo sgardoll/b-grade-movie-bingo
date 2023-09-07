@@ -267,7 +267,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                               ),
                                               width: 150.0,
                                               lineHeight: 36.0,
-                                              animation: false,
+                                              animation: true,
                                               progressColor: Color(0xA323262B),
                                               backgroundColor:
                                                   Color(0x98FFFFFF),
