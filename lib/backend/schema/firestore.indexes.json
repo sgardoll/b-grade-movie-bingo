@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "players",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "beingPlayedRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "playerName",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "188304975040",
+    "project_id": "movie-bingo",
+    "storage_bucket": "movie-bingo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188304975040:android:7ae88065745a27f257b925",
+        "android_client_info": {
+          "package_name": "com.connectio.moviebingo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188304975040-42nksl3c82fdr8986ftand2d1bdud8vi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectio.moviebingo",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "188304975040-lovam9kvr3a52445eb3djldhrjentmfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj-s15jwUJF3BREG2g7MY026Qu3aPvWic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188304975040-lovam9kvr3a52445eb3djldhrjentmfn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "188304975040-f6i4ttn3du3a3feul5isnqousrjjicul.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.connectio.moviebingo",
+                "app_store_id": "6458838998"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-3945304154369399~2978133775"
+    }
+  ],
+  "configuration_version": "1"
+}
