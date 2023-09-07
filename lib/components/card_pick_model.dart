@@ -37,7 +37,7 @@ class CardPickModel extends FlutterFlowModel {
   String? stopAudioTimerEnd;
   String? cancelAudioRec;
   String? stopRecordForSubmit;
-  // Stores action output result for [Custom Action - getBytes] action in Button widget.
+  // Stores action output result for [Custom Action - getFileFromPath] action in Button widget.
   FFUploadedFile? audioFile;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =

@@ -395,7 +395,8 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                     if (isWeb) {
                                       Navigator.pop(context);
                                     } else {
-                                      _model.audioFile = await actions.getBytes(
+                                      _model.audioFile =
+                                          await actions.getFileFromPath(
                                         _model.stopAudioTimerEnd != null &&
                                                 _model.stopAudioTimerEnd != ''
                                             ? _model.stopAudioTimerEnd
