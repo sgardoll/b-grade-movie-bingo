@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/card_pick_widget.dart';
 import '/components/neon_sign_widget.dart';
 import '/flutter_flow/flutter_flow_ad_banner.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/permissions_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -29,7 +31,12 @@ class GameModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Card widget.
-  String? cardAudio;
+  FFUploadedFile? cardAudio;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
   // Model for NeonSign component.
   late NeonSignModel neonSignModel;
 

@@ -1,5 +1,4 @@
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
@@ -372,7 +371,6 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                       _model.isDataUploading = false;
                                       _model.uploadedLocalFile = FFUploadedFile(
                                           bytes: Uint8List.fromList([]));
-                                      _model.uploadedFileUrl = '';
                                     });
 
                                     Navigator.pop(context);
@@ -411,13 +409,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                         var selectedUploadedFiles =
                                             <FFUploadedFile>[];
 
-                                        var downloadUrls = <String>[];
                                         try {
-                                          showUploadMessage(
-                                            context,
-                                            'Uploading file...',
-                                            showLoading: true,
-                                          );
                                           selectedUploadedFiles = selectedFiles
                                               .map((m) => FFUploadedFile(
                                                     name: m.storagePath
@@ -426,47 +418,23 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                                     bytes: m.bytes,
                                                   ))
                                               .toList();
-
-                                          downloadUrls = (await Future.wait(
-                                            selectedFiles.map(
-                                              (f) async => await uploadData(
-                                                  f.storagePath, f.bytes),
-                                            ),
-                                          ))
-                                              .where((u) => u != null)
-                                              .map((u) => u!)
-                                              .toList();
                                         } finally {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
                                           _model.isDataUploading = false;
                                         }
                                         if (selectedUploadedFiles.length ==
-                                                selectedFiles.length &&
-                                            downloadUrls.length ==
-                                                selectedFiles.length) {
+                                            selectedFiles.length) {
                                           setState(() {
                                             _model.uploadedLocalFile =
                                                 selectedUploadedFiles.first;
-                                            _model.uploadedFileUrl =
-                                                downloadUrls.first;
                                           });
-                                          showUploadMessage(
-                                            context,
-                                            'Success!',
-                                          );
                                         } else {
                                           setState(() {});
-                                          showUploadMessage(
-                                            context,
-                                            'Failed to upload file',
-                                          );
                                           return;
                                         }
                                       }
 
                                       Navigator.pop(
-                                          context, _model.uploadedFileUrl);
+                                          context, _model.uploadedLocalFile);
                                     }
 
                                     setState(() {});

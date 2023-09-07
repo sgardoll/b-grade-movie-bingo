@@ -55,6 +55,8 @@
 
 	<key>NSCameraUsageDescription</key>
     <string>To quickly join a existing game you can scan a QR code, however in order to do this the app requires access to your camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>In order to upload data, this app requires permission to access the photo library.</string>
 	<key>NSMicrophoneUsageDescription</key>
     <string>In order to record the moment you have marked as your bingo item, this app requires access to your microphone to record 15 seconds of audio.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

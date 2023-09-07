@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/card_pick_widget.dart';
 import '/components/neon_sign_widget.dart';
 import '/flutter_flow/flutter_flow_ad_banner.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/permissions_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -253,6 +255,87 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                                                     _model.cardAudio =
                                                                         value));
 
+                                                            {
+                                                              setState(() =>
+                                                                  _model.isDataUploading =
+                                                                      true);
+                                                              var selectedUploadedFiles =
+                                                                  <FFUploadedFile>[];
+                                                              var selectedMedia =
+                                                                  <SelectedFile>[];
+                                                              var downloadUrls =
+                                                                  <String>[];
+                                                              try {
+                                                                showUploadMessage(
+                                                                  context,
+                                                                  'Uploading file...',
+                                                                  showLoading:
+                                                                      true,
+                                                                );
+                                                                selectedUploadedFiles = _model
+                                                                        .cardAudio!
+                                                                        .bytes!
+                                                                        .isNotEmpty
+                                                                    ? [
+                                                                        _model
+                                                                            .cardAudio!
+                                                                      ]
+                                                                    : <FFUploadedFile>[];
+                                                                selectedMedia =
+                                                                    selectedFilesFromUploadedFiles(
+                                                                  selectedUploadedFiles,
+                                                                );
+                                                                downloadUrls = (await Future
+                                                                        .wait(
+                                                                  selectedMedia
+                                                                      .map(
+                                                                    (m) async =>
+                                                                        await uploadData(
+                                                                            m.storagePath,
+                                                                            m.bytes),
+                                                                  ),
+                                                                ))
+                                                                    .where((u) =>
+                                                                        u !=
+                                                                        null)
+                                                                    .map((u) =>
+                                                                        u!)
+                                                                    .toList();
+                                                              } finally {
+                                                                ScaffoldMessenger.of(
+                                                                        context)
+                                                                    .hideCurrentSnackBar();
+                                                                _model.isDataUploading =
+                                                                    false;
+                                                              }
+                                                              if (selectedUploadedFiles
+                                                                          .length ==
+                                                                      selectedMedia
+                                                                          .length &&
+                                                                  downloadUrls
+                                                                          .length ==
+                                                                      selectedMedia
+                                                                          .length) {
+                                                                setState(() {
+                                                                  _model.uploadedLocalFile =
+                                                                      selectedUploadedFiles
+                                                                          .first;
+                                                                  _model.uploadedFileUrl =
+                                                                      downloadUrls
+                                                                          .first;
+                                                                });
+                                                                showUploadMessage(
+                                                                    context,
+                                                                    'Success!');
+                                                              } else {
+                                                                setState(() {});
+                                                                showUploadMessage(
+                                                                    context,
+                                                                    'Failed to upload data');
+                                                                return;
+                                                              }
+                                                            }
+
                                                             await gameBeingPlayedRecord
                                                                 .reference
                                                                 .update({
@@ -265,7 +348,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                                                         getCurrentTimestamp,
                                                                     audioPath:
                                                                         _model
-                                                                            .cardAudio,
+                                                                            .uploadedFileUrl,
                                                                     player: FFAppState()
                                                                         .playerRef,
                                                                     cardText:
