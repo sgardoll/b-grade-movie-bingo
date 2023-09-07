@@ -1,11 +1,10 @@
 import '/backend/backend.dart';
+import '/components/progress_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 import 'card_pick_model.dart';
@@ -81,19 +79,16 @@ class _CardPickWidgetState extends State<CardPickWidget>
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (isWeb) {
-        return;
-      }
-
-      _model.timerController.onExecute.add(StopWatchExecute.start);
-      _model.audioRecorder ??= Record();
-      if (await _model.audioRecorder!.hasPermission()) {
-        await _model.audioRecorder!.start();
-      } else {
-        showSnackbar(
-          context,
-          'You have not provided permission to record audio.',
-        );
+      if (!isWeb) {
+        _model.audioRecorder ??= Record();
+        if (await _model.audioRecorder!.hasPermission()) {
+          await _model.audioRecorder!.start();
+        } else {
+          showSnackbar(
+            context,
+            'You have not provided permission to record audio.',
+          );
+        }
       }
     });
 
@@ -202,104 +197,12 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                         size: 20.0,
                                       ),
                                     ),
-                                    Container(
-                                      width: 150.0,
-                                      height: 36.0,
-                                      child: Stack(
-                                        children: [
-                                          FlutterFlowTimer(
-                                            initialTime:
-                                                _model.timerMilliseconds,
-                                            getDisplayTime: (value) =>
-                                                StopWatchTimer.getDisplayTime(
-                                              value,
-                                              hours: false,
-                                              minute: false,
-                                            ),
-                                            timer: _model.timerController,
-                                            updateStateInterval:
-                                                Duration(milliseconds: 500),
-                                            onChanged: (value, displayTime,
-                                                shouldUpdate) {
-                                              _model.timerMilliseconds = value;
-                                              _model.timerValue = displayTime;
-                                              if (shouldUpdate) setState(() {});
-                                            },
-                                            onEnded: () async {
-                                              _model.stopAudioTimerEnd =
-                                                  await _model.audioRecorder
-                                                      ?.stop();
-
-                                              setState(() {});
-                                            },
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.getFont(
-                                              'Outfit',
-                                              color: Colors.transparent,
-                                              fontSize: 1.0,
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 150.0,
-                                            height: 36.0,
-                                            decoration: BoxDecoration(
-                                              color: Colors.transparent,
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: LinearPercentIndicator(
-                                              percent: valueOrDefault<double>(
-                                                (int? timerMs,
-                                                        int denominator) {
-                                                  return 1 -
-                                                      (timerMs ?? 0) /
-                                                          (denominator !=
-                                                                      null &&
-                                                                  denominator !=
-                                                                      0
-                                                              ? denominator
-                                                              : 15000);
-                                                }(
-                                                    _model.timerMilliseconds,
-                                                    valueOrDefault<int>(
-                                                      15000,
-                                                      15000,
-                                                    )),
-                                                0.0,
-                                              ),
-                                              width: 150.0,
-                                              lineHeight: 36.0,
-                                              animation: true,
-                                              progressColor: Color(0xA323262B),
-                                              backgroundColor:
-                                                  Color(0x98FFFFFF),
-                                              barRadius: Radius.circular(12.0),
-                                              padding: EdgeInsets.zero,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(1.0, 0.0),
-                                            child: Container(
-                                              width: 38.0,
-                                              height: 36.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.transparent,
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Icon(
-                                                Icons.keyboard_voice_rounded,
-                                                color: widget.color,
-                                                size: 20.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                    wrapWithModel(
+                                      model: _model.progressBarModel,
+                                      updateCallback: () => setState(() {}),
+                                      updateOnChange: true,
+                                      child: ProgressBarWidget(
+                                        parameter1: widget.color!,
                                       ),
                                     ),
                                   ].divide(SizedBox(width: 16.0)),
@@ -371,8 +274,10 @@ class _CardPickWidgetState extends State<CardPickWidget>
                               children: [
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    _model.cancelAudioRec =
-                                        await _model.audioRecorder?.stop();
+                                    if (!isWeb) {
+                                      _model.cancelAudioRec =
+                                          await _model.audioRecorder?.stop();
+                                    }
                                     Navigator.pop(context);
 
                                     setState(() {});
@@ -400,11 +305,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                       _model.stopAudioSubmit =
                                           await _model.audioRecorder?.stop();
                                       Navigator.pop(
-                                          context,
-                                          _model.stopAudioTimerEnd != null &&
-                                                  _model.stopAudioTimerEnd != ''
-                                              ? _model.stopAudioTimerEnd
-                                              : _model.stopAudioSubmit);
+                                          context, _model.stopAudioSubmit);
                                     }
 
                                     setState(() {});
