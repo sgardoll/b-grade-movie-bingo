@@ -163,7 +163,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                setState(() {
+                _model.updatePage(() {
                   _model.isSelected = true;
                 });
                 if (animationsMap['imageOnActionTriggerAnimation'] != null) {

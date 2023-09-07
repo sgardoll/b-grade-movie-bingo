@@ -397,8 +397,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                   onPressed: () async {
                                     if (isWeb) {
                                       Navigator.pop(context);
-                                    } else if (await getPermissionStatus(
-                                        microphonePermission)) {
+                                    } else {
                                       if (_model.stopAudioTimerEnd != null &&
                                               _model.stopAudioTimerEnd != ''
                                           ? true
@@ -461,8 +460,6 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                         Navigator.pop(context,
                                             _model.cutAudioRecAndDismiss);
                                       }
-                                    } else {
-                                      Navigator.pop(context);
                                     }
 
                                     setState(() {});

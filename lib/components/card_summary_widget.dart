@@ -215,7 +215,9 @@ class _CardSummaryWidgetState extends State<CardSummaryWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    _model.isPlaying = true;
+                    setState(() {
+                      _model.isPlaying = true;
+                    });
                     _model.soundPlayer ??= AudioPlayer();
                     if (_model.soundPlayer!.playing) {
                       await _model.soundPlayer!.stop();
