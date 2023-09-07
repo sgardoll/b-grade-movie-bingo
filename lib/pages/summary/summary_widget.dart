@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/card_summary_widget.dart';
 import '/components/neon_sign_widget.dart';
@@ -317,7 +318,14 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                             flex: 2,
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                context.goNamed('HomePage');
+                                                GoRouter.of(context)
+                                                    .prepareAuthEvent();
+                                                await authManager.signOut();
+                                                GoRouter.of(context)
+                                                    .clearRedirectLocation();
+
+                                                context.goNamedAuth('HomePage',
+                                                    context.mounted);
                                               },
                                               text: 'Home',
                                               icon: Icon(

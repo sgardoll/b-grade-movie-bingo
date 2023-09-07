@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/players_widget.dart';
 import '/flutter_flow/flutter_flow_ad_banner.dart';
@@ -136,6 +137,10 @@ class _StartWidgetState extends State<StartWidget> {
                   size: 30.0,
                 ),
                 onPressed: () async {
+                  GoRouter.of(context).prepareAuthEvent();
+                  await authManager.signOut();
+                  GoRouter.of(context).clearRedirectLocation();
+
                   context.safePop();
                 },
               ),

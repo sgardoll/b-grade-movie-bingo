@@ -1,11 +1,12 @@
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -36,6 +37,10 @@ class CardPickModel extends FlutterFlowModel {
   String? stopAudioTimerEnd;
   String? cancelAudioRec;
   String? cutAudioRecAndDismiss;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   /// Initialization and disposal methods.
 
