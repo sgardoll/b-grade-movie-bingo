@@ -96,61 +96,44 @@ class _CardSummaryWidgetState extends State<CardSummaryWidget>
 
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 12.0, 12.0),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 1.0,
-        decoration: BoxDecoration(
-          color: Color(0xC0FFFFFF),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x34090F13),
-              offset: Offset(0.0, 2.0),
-            )
-          ],
+      child: Material(
+        color: Colors.transparent,
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    FlutterFlowAudioPlayer(
-                      audio: Audio.network(
-                        widget.audio!,
-                        metas: Metas(
-                          id: '2vqf7_-b99c54fa',
-                          title: widget.cardText,
-                        ),
-                      ),
-                      titleTextStyle: FlutterFlowTheme.of(context).titleLarge,
-                      playbackDurationTextStyle:
-                          FlutterFlowTheme.of(context).labelMedium,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      playbackButtonColor: FlutterFlowTheme.of(context).primary,
-                      activeTrackColor: FlutterFlowTheme.of(context).alternate,
-                      elevation: 4.0,
-                      playInBackground:
-                          PlayInBackground.disabledRestoreOnForeground,
-                    ),
-                  ],
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            decoration: BoxDecoration(
+              color: Color(0xC0FFFFFF),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4.0,
+                  color: Color(0x34090F13),
+                  offset: Offset(0.0, 2.0),
+                )
+              ],
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: FlutterFlowAudioPlayer(
+              audio: Audio.network(
+                widget.audio!,
+                metas: Metas(
+                  id: '2vqf7_-b99c54fa',
+                  title: widget.cardText,
                 ),
               ),
-            ]
-                .divide(SizedBox(width: 8.0))
-                .addToStart(SizedBox(width: 8.0))
-                .addToEnd(SizedBox(width: 8.0)),
+              titleTextStyle: FlutterFlowTheme.of(context).titleLarge,
+              playbackDurationTextStyle:
+                  FlutterFlowTheme.of(context).labelMedium,
+              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+              playbackButtonColor: FlutterFlowTheme.of(context).primary,
+              activeTrackColor: FlutterFlowTheme.of(context).alternate,
+              elevation: 4.0,
+              playInBackground: PlayInBackground.disabledRestoreOnForeground,
+            ),
           ),
         ),
       ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
