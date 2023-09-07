@@ -253,14 +253,14 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                               percent: valueOrDefault<double>(
                                                 (int? timerMs,
                                                         int denominator) {
-                                                  return (timerMs ?? 0) /
+                                                  return (timerMs ?? 1) /
                                                       (denominator != null &&
                                                               denominator != 0
                                                           ? denominator
                                                           : 1);
                                                 }(_model.timerMilliseconds,
                                                     (15000)),
-                                                0.0,
+                                                1.0,
                                               ),
                                               width: 150.0,
                                               lineHeight: 36.0,
