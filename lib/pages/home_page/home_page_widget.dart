@@ -172,52 +172,105 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 150.0, 24.0, 0.0),
-                                    child: AnimatedContainer(
-                                      duration: Duration(milliseconds: 600),
-                                      curve: Curves.bounceOut,
-                                      width: 400.0,
-                                      height: 265.0,
-                                      decoration: BoxDecoration(),
-                                      child: StreamBuilder<List<CardsRecord>>(
-                                        stream: FFAppState().cardsQuery(
-                                          requestFn: () => queryCardsRecord(),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child: SpinKitRipple(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 600),
+                                    curve: Curves.bounceOut,
+                                    width: 400.0,
+                                    height: 265.0,
+                                    decoration: BoxDecoration(),
+                                    child: StreamBuilder<List<CardsRecord>>(
+                                      stream: FFAppState().cardsQuery(
+                                        requestFn: () => queryCardsRecord(),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: SpinKitRipple(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 50.0,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<CardsRecord>
+                                            pageViewCardsRecordList =
+                                            snapshot.data!;
+                                        return Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              1.0,
+                                          child: Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        32.0, 150.0, 32.0, 0.0),
+                                                child: PageView.builder(
+                                                  controller: _model
+                                                          .pageViewController ??=
+                                                      PageController(
+                                                          initialPage: min(
+                                                              0,
+                                                              pageViewCardsRecordList
+                                                                      .length -
+                                                                  1)),
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount:
+                                                      pageViewCardsRecordList
+                                                          .length,
+                                                  itemBuilder:
+                                                      (context, pageViewIndex) {
+                                                    final pageViewCardsRecord =
+                                                        pageViewCardsRecordList[
+                                                            pageViewIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  8.0),
+                                                      child: GameSwipeWidget(
+                                                        key: Key(
+                                                            'Keyk8s_${pageViewIndex}_of_${pageViewCardsRecordList.length}'),
+                                                        color:
+                                                            pageViewCardsRecord
+                                                                .color!,
+                                                        image:
+                                                            pageViewCardsRecord
+                                                                .image,
+                                                        icon: Icon(
+                                                          Icons.movie_filter,
+                                                          size: 24.0,
+                                                        ),
+                                                        gameRef:
+                                                            pageViewCardsRecord
+                                                                .reference,
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
                                               ),
-                                            );
-                                          }
-                                          List<CardsRecord>
-                                              pageViewCardsRecordList =
-                                              snapshot.data!;
-                                          return Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                1.058,
-                                            child: Stack(
-                                              children: [
-                                                Padding(
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 1.0),
+                                                child: Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          0.0, 0.0, 0.0, 40.0),
-                                                  child: PageView.builder(
+                                                          16.0, 0.0, 0.0, 32.0),
+                                                  child: smooth_page_indicator
+                                                      .SmoothPageIndicator(
                                                     controller: _model
                                                             .pageViewController ??=
                                                         PageController(
@@ -226,105 +279,45 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                 pageViewCardsRecordList
                                                                         .length -
                                                                     1)),
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemCount:
+                                                    count:
                                                         pageViewCardsRecordList
                                                             .length,
-                                                    itemBuilder: (context,
-                                                        pageViewIndex) {
-                                                      final pageViewCardsRecord =
-                                                          pageViewCardsRecordList[
-                                                              pageViewIndex];
-                                                      return Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    8.0),
-                                                        child: GameSwipeWidget(
-                                                          key: Key(
-                                                              'Keyk8s_${pageViewIndex}_of_${pageViewCardsRecordList.length}'),
-                                                          color:
-                                                              pageViewCardsRecord
-                                                                  .color!,
-                                                          image:
-                                                              pageViewCardsRecord
-                                                                  .image,
-                                                          icon: Icon(
-                                                            Icons.movie_filter,
-                                                            size: 24.0,
-                                                          ),
-                                                          gameRef:
-                                                              pageViewCardsRecord
-                                                                  .reference,
-                                                        ),
+                                                    axisDirection:
+                                                        Axis.horizontal,
+                                                    onDotClicked: (i) async {
+                                                      await _model
+                                                          .pageViewController!
+                                                          .animateToPage(
+                                                        i,
+                                                        duration: Duration(
+                                                            milliseconds: 500),
+                                                        curve: Curves.ease,
                                                       );
                                                     },
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 1.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                                0.0, 32.0),
-                                                    child: smooth_page_indicator
-                                                        .SmoothPageIndicator(
-                                                      controller: _model
-                                                              .pageViewController ??=
-                                                          PageController(
-                                                              initialPage: min(
-                                                                  0,
-                                                                  pageViewCardsRecordList
-                                                                          .length -
-                                                                      1)),
-                                                      count:
-                                                          pageViewCardsRecordList
-                                                              .length,
-                                                      axisDirection:
-                                                          Axis.horizontal,
-                                                      onDotClicked: (i) async {
-                                                        await _model
-                                                            .pageViewController!
-                                                            .animateToPage(
-                                                          i,
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  500),
-                                                          curve: Curves.ease,
-                                                        );
-                                                      },
-                                                      effect: smooth_page_indicator
-                                                          .ExpandingDotsEffect(
-                                                        expansionFactor: 3.0,
-                                                        spacing: 8.0,
-                                                        radius: 16.0,
-                                                        dotWidth: 16.0,
-                                                        dotHeight: 8.0,
-                                                        dotColor:
-                                                            Color(0x40FFFFFF),
-                                                        activeDotColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryBackground,
-                                                        paintStyle:
-                                                            PaintingStyle.fill,
-                                                      ),
+                                                    effect: smooth_page_indicator
+                                                        .ExpandingDotsEffect(
+                                                      expansionFactor: 3.0,
+                                                      spacing: 8.0,
+                                                      radius: 16.0,
+                                                      dotWidth: 16.0,
+                                                      dotHeight: 8.0,
+                                                      dotColor:
+                                                          Color(0x40FFFFFF),
+                                                      activeDotColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      paintStyle:
+                                                          PaintingStyle.fill,
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'pageViewOnPageLoadAnimation']!);
-                                        },
-                                      ),
+                                              ),
+                                            ],
+                                          ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'pageViewOnPageLoadAnimation']!);
+                                      },
                                     ),
                                   ),
                                 ),

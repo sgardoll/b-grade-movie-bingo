@@ -32,8 +32,20 @@ class SelectedIcon extends StatefulWidget {
 }
 
 class _SelectedIconState extends State<SelectedIcon> {
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.isSelected;
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (widget.isSelected) {
+      isLiked = true;
+    }
+
     return Container(
       width: widget.width,
       height: widget.height,
@@ -45,13 +57,12 @@ class _SelectedIconState extends State<SelectedIcon> {
                 ? Icons.check_circle_outline_rounded
                 : Icons.circle_outlined,
             color: isLiked
-                ? (widget.selectedColor ??
-                    FlutterFlowTheme.of(context).secondary)
+                ? (widget.selectedColor ?? Colors.blue)
                 : (widget.unselectedColor ?? Color(0x25666666)),
             size: widget.width ?? 30.0,
           );
         },
-        isLiked: widget.isSelected,
+        isLiked: isLiked,
       ),
     );
   }
