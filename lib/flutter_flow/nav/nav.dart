@@ -53,7 +53,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ),
                 ),
               )
-            : JoinWidget(),
+            : HomePageWidget(),
       ),
       routes: [
         FFRoute(
@@ -69,7 +69,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
                   ),
                 )
-              : JoinWidget(),
+              : HomePageWidget(),
         ),
         FFRoute(
           name: 'HomePage',

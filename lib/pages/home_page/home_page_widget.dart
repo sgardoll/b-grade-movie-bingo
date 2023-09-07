@@ -172,15 +172,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Expanded(
-                                  child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 600),
-                                    curve: Curves.bounceOut,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    decoration: BoxDecoration(),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 150.0, 0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 150.0, 24.0, 0.0),
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 600),
+                                      curve: Curves.bounceOut,
+                                      width: 400.0,
+                                      height: 265.0,
+                                      decoration: BoxDecoration(),
                                       child: StreamBuilder<List<CardsRecord>>(
                                         stream: FFAppState().cardsQuery(
                                           requestFn: () => queryCardsRecord(),
@@ -205,8 +205,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               pageViewCardsRecordList =
                                               snapshot.data!;
                                           return Container(
-                                            width: double.infinity,
-                                            height: double.infinity,
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                1.058,
                                             child: Stack(
                                               children: [
                                                 Padding(
@@ -236,10 +240,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    24.0,
                                                                     0.0,
-                                                                    24.0,
-                                                                    0.0),
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0),
                                                         child: GameSwipeWidget(
                                                           key: Key(
                                                               'Keyk8s_${pageViewIndex}_of_${pageViewCardsRecordList.length}'),
@@ -327,148 +331,215 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               ].divide(SizedBox(height: 16.0)),
                             ),
                           ),
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 600),
-                            curve: Curves.elasticOut,
-                            width: double.infinity,
-                            height: 170.0,
-                            decoration: BoxDecoration(),
-                            child: Visibility(
-                              visible: valueOrDefault<bool>(
-                                FFAppState().gameIsSelected ? true : false,
-                                false,
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Transform.rotate(
-                                      angle: 6.1959,
-                                      child: Visibility(
-                                        visible: valueOrDefault<bool>(
-                                          FFAppState().gameIsSelected
-                                              ? true
-                                              : false,
-                                          false,
-                                        ),
-                                        child: Builder(
-                                          builder: (context) => FFButtonWidget(
-                                            onPressed: () async {
-                                              var playersRecordReference =
-                                                  PlayersRecord.collection
-                                                      .doc();
-                                              await playersRecordReference.set(
-                                                  createPlayersRecordData());
-                                              _model.newPlayerRefStart =
-                                                  PlayersRecord.getDocumentFromData(
-                                                      createPlayersRecordData(),
-                                                      playersRecordReference);
-                                              setState(() {
-                                                FFAppState().playerRef = _model
-                                                    .newPlayerRefStart
-                                                    ?.reference;
-                                              });
-                                              await showAlignedDialog(
-                                                barrierColor: Color(0xC0000000),
-                                                barrierDismissible: false,
-                                                context: context,
-                                                isGlobal: true,
-                                                avoidOverflow: true,
-                                                targetAnchor:
-                                                    AlignmentDirectional(
-                                                            0.0, -1.0)
-                                                        .resolve(
-                                                            Directionality.of(
-                                                                context)),
-                                                followerAnchor:
-                                                    AlignmentDirectional(
-                                                            0.0, -1.0)
-                                                        .resolve(
-                                                            Directionality.of(
-                                                                context)),
-                                                builder: (dialogContext) {
-                                                  return Material(
-                                                    color: Colors.transparent,
-                                                    child: GestureDetector(
-                                                      onTap: () => FocusScope
-                                                              .of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode),
-                                                      child:
-                                                          StartEnterNameWidget(),
+                          Flexible(
+                            flex: 1,
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 600),
+                              curve: Curves.elasticOut,
+                              width: double.infinity,
+                              height: 170.0,
+                              decoration: BoxDecoration(),
+                              child: Visibility(
+                                visible: valueOrDefault<bool>(
+                                  FFAppState().gameIsSelected ? true : false,
+                                  false,
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Transform.rotate(
+                                        angle: 6.1959,
+                                        child: Visibility(
+                                          visible: valueOrDefault<bool>(
+                                            FFAppState().gameIsSelected
+                                                ? true
+                                                : false,
+                                            false,
+                                          ),
+                                          child: Builder(
+                                            builder: (context) =>
+                                                FFButtonWidget(
+                                              onPressed: () async {
+                                                var playersRecordReference =
+                                                    PlayersRecord.collection
+                                                        .doc();
+                                                await playersRecordReference.set(
+                                                    createPlayersRecordData());
+                                                _model.newPlayerRefStart =
+                                                    PlayersRecord.getDocumentFromData(
+                                                        createPlayersRecordData(),
+                                                        playersRecordReference);
+                                                setState(() {
+                                                  FFAppState().playerRef =
+                                                      _model.newPlayerRefStart
+                                                          ?.reference;
+                                                });
+                                                await showAlignedDialog(
+                                                  barrierColor:
+                                                      Color(0xC0000000),
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  isGlobal: true,
+                                                  avoidOverflow: true,
+                                                  targetAnchor:
+                                                      AlignmentDirectional(
+                                                              0.0, -1.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  followerAnchor:
+                                                      AlignmentDirectional(
+                                                              0.0, -1.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  builder: (dialogContext) {
+                                                    return Material(
+                                                      color: Colors.transparent,
+                                                      child: GestureDetector(
+                                                        onTap: () => FocusScope
+                                                                .of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode),
+                                                        child:
+                                                            StartEnterNameWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) => setState(() =>
+                                                    _model.leadPlayerName =
+                                                        value));
+
+                                                if (_model.leadPlayerName !=
+                                                        null &&
+                                                    _model.leadPlayerName !=
+                                                        '') {
+                                                  await _model
+                                                      .newPlayerRefStart!
+                                                      .reference
+                                                      .update(
+                                                          createPlayersRecordData(
+                                                    playerName:
+                                                        _model.leadPlayerName,
+                                                  ));
+                                                  _model.joinCode5Digits =
+                                                      await actions
+                                                          .getRandomString(
+                                                    5,
+                                                  );
+
+                                                  context.pushNamed(
+                                                    'Start',
+                                                    queryParameters: {
+                                                      'joinCode':
+                                                          serializeParam(
+                                                        _model.joinCode5Digits,
+                                                        ParamType.String,
+                                                      ),
+                                                      'leadPlayerRef':
+                                                          serializeParam(
+                                                        FFAppState().playerRef,
+                                                        ParamType
+                                                            .DocumentReference,
+                                                      ),
+                                                      'cardGameRef':
+                                                          serializeParam(
+                                                        FFAppState()
+                                                            .gameSelected,
+                                                        ParamType
+                                                            .DocumentReference,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Nothing was entered',
+                                                        style:
+                                                            GoogleFonts.getFont(
+                                                          'Outfit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
                                                     ),
                                                   );
-                                                },
-                                              ).then((value) => setState(() =>
-                                                  _model.leadPlayerName =
-                                                      value));
+                                                }
 
-                                              if (_model.leadPlayerName !=
-                                                      null &&
-                                                  _model.leadPlayerName != '') {
-                                                await _model.newPlayerRefStart!
-                                                    .reference
-                                                    .update(
-                                                        createPlayersRecordData(
-                                                  playerName:
-                                                      _model.leadPlayerName,
-                                                ));
-                                                _model.joinCode5Digits =
-                                                    await actions
-                                                        .getRandomString(
-                                                  5,
-                                                );
-
-                                                context.pushNamed(
-                                                  'Start',
-                                                  queryParameters: {
-                                                    'joinCode': serializeParam(
-                                                      _model.joinCode5Digits,
-                                                      ParamType.String,
+                                                setState(() {});
+                                              },
+                                              text: 'START',
+                                              options: FFButtonOptions(
+                                                width: 200.0,
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Neon Glow',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      fontSize: 30.0,
+                                                      useGoogleFonts: false,
                                                     ),
-                                                    'leadPlayerRef':
-                                                        serializeParam(
-                                                      FFAppState().playerRef,
-                                                      ParamType
-                                                          .DocumentReference,
-                                                    ),
-                                                    'cardGameRef':
-                                                        serializeParam(
-                                                      FFAppState().gameSelected,
-                                                      ParamType
-                                                          .DocumentReference,
-                                                    ),
-                                                  }.withoutNulls,
-                                                );
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Nothing was entered',
-                                                      style:
-                                                          GoogleFonts.getFont(
-                                                        'Outfit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
+                                                elevation: 6.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ).animateOnPageLoad(animationsMap[
+                                                    'buttonOnPageLoadAnimation1']!),
+                                          ),
+                                        ),
+                                      ),
+                                      Transform.rotate(
+                                        angle: 0.0349,
+                                        child: Visibility(
+                                          visible: valueOrDefault<bool>(
+                                            FFAppState().gameIsSelected
+                                                ? true
+                                                : false,
+                                            false,
+                                          ),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              context.pushNamed(
+                                                'join',
+                                                pathParameters: {
+                                                  'joinCode': serializeParam(
+                                                    'IIIII',
+                                                    ParamType.String,
                                                   ),
-                                                );
-                                              }
-
-                                              setState(() {});
+                                                }.withoutNulls,
+                                              );
                                             },
-                                            text: 'START',
+                                            text: 'JOIN',
                                             options: FFButtonOptions(
                                               width: 200.0,
                                               height: 40.0,
@@ -500,74 +571,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   BorderRadius.circular(8.0),
                                             ),
                                           ).animateOnPageLoad(animationsMap[
-                                              'buttonOnPageLoadAnimation1']!),
+                                              'buttonOnPageLoadAnimation2']!),
                                         ),
                                       ),
-                                    ),
-                                    Transform.rotate(
-                                      angle: 0.0349,
-                                      child: Visibility(
-                                        visible: valueOrDefault<bool>(
-                                          FFAppState().gameIsSelected
-                                              ? true
-                                              : false,
-                                          false,
-                                        ),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            context.pushNamed(
-                                              'join',
-                                              pathParameters: {
-                                                'joinCode': serializeParam(
-                                                  'IIIII',
-                                                  ParamType.String,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          },
-                                          text: 'JOIN',
-                                          options: FFButtonOptions(
-                                            width: 200.0,
-                                            height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Neon Glow',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      fontSize: 30.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            elevation: 6.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ).animateOnPageLoad(animationsMap[
-                                            'buttonOnPageLoadAnimation2']!),
-                                      ),
-                                    ),
-                                  ]
-                                      .divide(SizedBox(height: 32.0))
-                                      .addToStart(SizedBox(height: 16.0))
-                                      .addToEnd(SizedBox(height: 16.0)),
-                                ),
-                              ).animateOnPageLoad(
-                                  animationsMap['columnOnPageLoadAnimation']!),
+                                    ]
+                                        .divide(SizedBox(height: 32.0))
+                                        .addToStart(SizedBox(height: 16.0))
+                                        .addToEnd(SizedBox(height: 16.0)),
+                                  ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'columnOnPageLoadAnimation']!),
+                              ),
                             ),
                           ),
                         ],

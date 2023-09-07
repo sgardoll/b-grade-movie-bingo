@@ -99,7 +99,7 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
               width: 150.0,
               lineHeight: 36.0,
               animation: false,
-              progressColor: Color(0xA323262B),
+              progressColor: FlutterFlowTheme.of(context).secondaryBackground,
               backgroundColor: Color(0x98FFFFFF),
               barRadius: Radius.circular(12.0),
               padding: EdgeInsets.zero,
