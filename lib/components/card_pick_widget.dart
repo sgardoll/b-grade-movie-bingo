@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -367,12 +369,6 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                   onPressed: () async {
                                     _model.cancelAudioRec =
                                         await _model.audioRecorder?.stop();
-                                    setState(() {
-                                      _model.isDataUploading = false;
-                                      _model.uploadedLocalFile = FFUploadedFile(
-                                          bytes: Uint8List.fromList([]));
-                                    });
-
                                     Navigator.pop(context);
 
                                     setState(() {});
@@ -394,38 +390,54 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {
+                                    _model.stopRecordForSubmit =
+                                        await _model.audioRecorder?.stop();
                                     if (isWeb) {
                                       Navigator.pop(context);
                                     } else {
-                                      _model.cutAudioRecAndDismiss =
-                                          await _model.audioRecorder?.stop();
-                                      final selectedFiles = await selectFiles(
-                                        allowedExtensions: ['mp3'],
-                                        multiFile: false,
+                                      _model.audioFile = await actions.getBytes(
+                                        _model.stopAudioTimerEnd != null &&
+                                                _model.stopAudioTimerEnd != ''
+                                            ? _model.stopAudioTimerEnd
+                                            : _model.stopRecordForSubmit,
                                       );
-                                      if (selectedFiles != null) {
+                                      {
                                         setState(() =>
                                             _model.isDataUploading = true);
                                         var selectedUploadedFiles =
                                             <FFUploadedFile>[];
-
+                                        var selectedFiles = <SelectedFile>[];
+                                        var downloadUrls = <String>[];
                                         try {
-                                          selectedUploadedFiles = selectedFiles
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                  ))
+                                          selectedUploadedFiles = _model
+                                                  .audioFile!.bytes!.isNotEmpty
+                                              ? [_model.audioFile!]
+                                              : <FFUploadedFile>[];
+                                          selectedFiles =
+                                              selectedFilesFromUploadedFiles(
+                                            selectedUploadedFiles,
+                                          );
+                                          downloadUrls = (await Future.wait(
+                                            selectedFiles.map(
+                                              (f) async => await uploadData(
+                                                  f.storagePath, f.bytes),
+                                            ),
+                                          ))
+                                              .where((u) => u != null)
+                                              .map((u) => u!)
                                               .toList();
                                         } finally {
                                           _model.isDataUploading = false;
                                         }
                                         if (selectedUploadedFiles.length ==
-                                            selectedFiles.length) {
+                                                selectedFiles.length &&
+                                            downloadUrls.length ==
+                                                selectedFiles.length) {
                                           setState(() {
                                             _model.uploadedLocalFile =
                                                 selectedUploadedFiles.first;
+                                            _model.uploadedFileUrl =
+                                                downloadUrls.first;
                                           });
                                         } else {
                                           setState(() {});
@@ -434,7 +446,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                       }
 
                                       Navigator.pop(
-                                          context, _model.uploadedLocalFile);
+                                          context, _model.uploadedFileUrl);
                                     }
 
                                     setState(() {});
