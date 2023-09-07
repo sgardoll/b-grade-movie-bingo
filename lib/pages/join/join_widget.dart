@@ -88,7 +88,7 @@ class _JoinWidgetState extends State<JoinWidget> {
               await authManager.signOut();
               GoRouter.of(context).clearRedirectLocation();
 
-              context.safePop();
+              context.goNamedAuth('HomePage', context.mounted);
             },
           ),
           title: Text(
