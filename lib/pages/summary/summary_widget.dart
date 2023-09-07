@@ -135,249 +135,258 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                 ),
                               ),
                             ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 0.0),
-                                  child: AutoSizeText(
-                                    'Your Selections',
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                  ),
-                                ),
-                                Builder(
-                                  builder: (context) {
-                                    final yourSelections =
-                                        summaryBeingPlayedRecord
-                                            .playerSelections
-                                            .where((e) =>
-                                                e.player ==
-                                                FFAppState().playerRef)
-                                            .toList();
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: yourSelections.length,
-                                      itemBuilder:
-                                          (context, yourSelectionsIndex) {
-                                        final yourSelectionsItem =
-                                            yourSelections[yourSelectionsIndex];
-                                        return CardSummaryWidget(
-                                          key: Key(
-                                              'Keyocy_${yourSelectionsIndex}_of_${yourSelections.length}'),
-                                          cardText: yourSelectionsItem.cardText,
-                                          audio: yourSelectionsItem.audioPath,
-                                          timestamp:
-                                              yourSelectionsItem.timestamp!,
-                                          gameStartedTimestamp:
-                                              summaryBeingPlayedRecord
-                                                  .timeStarted!,
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 0.0),
-                                  child: Text(
-                                    'Your Group Selected',
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Manrope',
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                        ),
-                                  ),
-                                ),
-                                Builder(
-                                  builder: (context) {
-                                    final friendsSelections =
-                                        summaryBeingPlayedRecord
-                                            .playerSelections
-                                            .where((e) =>
-                                                e.player !=
-                                                FFAppState().playerRef)
-                                            .toList();
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: friendsSelections.length,
-                                      itemBuilder:
-                                          (context, friendsSelectionsIndex) {
-                                        final friendsSelectionsItem =
-                                            friendsSelections[
-                                                friendsSelectionsIndex];
-                                        return StreamBuilder<PlayersRecord>(
-                                          stream: PlayersRecord.getDocument(
-                                              friendsSelectionsItem.player!),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child: SpinKitRipple(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 50.0,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final columnPlayersRecord =
-                                                snapshot.data!;
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  '${columnPlayersRecord.playerName}- ${summaryBeingPlayedRecord.playerSelections.where((e) => columnPlayersRecord.reference == FFAppState().playerRef).toList().length.toString()} Selections',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium,
-                                                ),
-                                                Builder(
-                                                  builder: (context) {
-                                                    final playSelections =
-                                                        summaryBeingPlayedRecord
-                                                            .playerSelections
-                                                            .where((e) =>
-                                                                e.player ==
-                                                                friendsSelectionsItem
-                                                                    .player)
-                                                            .toList();
-                                                    return ListView.builder(
-                                                      padding: EdgeInsets.zero,
-                                                      shrinkWrap: true,
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount:
-                                                          playSelections.length,
-                                                      itemBuilder: (context,
-                                                          playSelectionsIndex) {
-                                                        final playSelectionsItem =
-                                                            playSelections[
-                                                                playSelectionsIndex];
-                                                        return CardSummaryWidget(
-                                                          key: Key(
-                                                              'Keyg7z_${playSelectionsIndex}_of_${playSelections.length}'),
-                                                          cardText:
-                                                              playSelectionsItem
-                                                                  .cardText,
-                                                          audio:
-                                                              playSelectionsItem
-                                                                  .audioPath,
-                                                          timestamp:
-                                                              friendsSelectionsItem
-                                                                  .timestamp!,
-                                                          gameStartedTimestamp:
-                                                              summaryBeingPlayedRecord
-                                                                  .timeStarted!,
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: Padding(
+                            content: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 32.0, 0.0, 8.0),
-                                    child: Container(
-                                      height: 40.0,
-                                      decoration: BoxDecoration(),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                            flex: 2,
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                GoRouter.of(context)
-                                                    .prepareAuthEvent();
-                                                await authManager.signOut();
-                                                GoRouter.of(context)
-                                                    .clearRedirectLocation();
+                                        0.0, 16.0, 0.0, 0.0),
+                                    child: AutoSizeText(
+                                      'Your Selections',
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                    ),
+                                  ),
+                                  Builder(
+                                    builder: (context) {
+                                      final yourSelections =
+                                          summaryBeingPlayedRecord
+                                              .playerSelections
+                                              .where((e) =>
+                                                  e.player ==
+                                                  FFAppState().playerRef)
+                                              .toList();
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: yourSelections.length,
+                                        itemBuilder:
+                                            (context, yourSelectionsIndex) {
+                                          final yourSelectionsItem =
+                                              yourSelections[
+                                                  yourSelectionsIndex];
+                                          return CardSummaryWidget(
+                                            key: Key(
+                                                'Keyocy_${yourSelectionsIndex}_of_${yourSelections.length}'),
+                                            cardText:
+                                                yourSelectionsItem.cardText,
+                                            audio: yourSelectionsItem.audioPath,
+                                            timestamp:
+                                                yourSelectionsItem.timestamp!,
+                                            gameStartedTimestamp:
+                                                summaryBeingPlayedRecord
+                                                    .timeStarted!,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 16.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Your Group Selected',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                    ),
+                                  ),
+                                  Builder(
+                                    builder: (context) {
+                                      final friendsSelections =
+                                          summaryBeingPlayedRecord
+                                              .playerSelections
+                                              .where((e) =>
+                                                  e.player !=
+                                                  FFAppState().playerRef)
+                                              .toList();
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: friendsSelections.length,
+                                        itemBuilder:
+                                            (context, friendsSelectionsIndex) {
+                                          final friendsSelectionsItem =
+                                              friendsSelections[
+                                                  friendsSelectionsIndex];
+                                          return StreamBuilder<PlayersRecord>(
+                                            stream: PlayersRecord.getDocument(
+                                                friendsSelectionsItem.player!),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child: SpinKitRipple(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 50.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              final columnPlayersRecord =
+                                                  snapshot.data!;
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    '${columnPlayersRecord.playerName} - ${summaryBeingPlayedRecord.playerSelections.where((e) => columnPlayersRecord.reference == FFAppState().playerRef).toList().length.toString()} Selections',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyLarge,
+                                                  ),
+                                                  Builder(
+                                                    builder: (context) {
+                                                      final playSelections =
+                                                          summaryBeingPlayedRecord
+                                                              .playerSelections
+                                                              .where((e) =>
+                                                                  e.player ==
+                                                                  friendsSelectionsItem
+                                                                      .player)
+                                                              .toList();
+                                                      return ListView.builder(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            playSelections
+                                                                .length,
+                                                        itemBuilder: (context,
+                                                            playSelectionsIndex) {
+                                                          final playSelectionsItem =
+                                                              playSelections[
+                                                                  playSelectionsIndex];
+                                                          return Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        0.0,
+                                                                        16.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              'Hello World',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleLarge,
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 32.0, 0.0, 8.0),
+                                      child: Container(
+                                        height: 40.0,
+                                        decoration: BoxDecoration(),
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Flexible(
+                                              flex: 2,
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  GoRouter.of(context)
+                                                      .prepareAuthEvent();
+                                                  await authManager.signOut();
+                                                  GoRouter.of(context)
+                                                      .clearRedirectLocation();
 
-                                                context.goNamedAuth('HomePage',
-                                                    context.mounted);
-                                              },
-                                              text: 'Home',
-                                              icon: Icon(
-                                                Icons.home_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                size: 18.0,
-                                              ),
-                                              options: FFButtonOptions(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        1.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 0.0, 24.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 8.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                        ),
-                                                elevation: 3.0,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
+                                                  context.goNamedAuth(
+                                                      'HomePage',
+                                                      context.mounted);
+                                                },
+                                                text: 'Home',
+                                                icon: Icon(
+                                                  Icons.home_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  size: 18.0,
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
+                                                options: FFButtonOptions(
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          1.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 0.0, 24.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              8.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Manrope',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                      ),
+                                                  elevation: 3.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ]
-                                            .divide(SizedBox(width: 8.0))
-                                            .addToStart(SizedBox(width: 32.0))
-                                            .addToEnd(SizedBox(width: 32.0)),
+                                          ]
+                                              .divide(SizedBox(width: 8.0))
+                                              .addToStart(SizedBox(width: 32.0))
+                                              .addToEnd(SizedBox(width: 32.0)),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

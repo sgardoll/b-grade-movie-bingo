@@ -579,8 +579,16 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                                               ) ??
                                                               false;
                                                       if (confirmDialogResponse) {
-                                                        context.goNamed(
-                                                            'HomePage');
+                                                        GoRouter.of(context)
+                                                            .prepareAuthEvent();
+                                                        await authManager
+                                                            .signOut();
+                                                        GoRouter.of(context)
+                                                            .clearRedirectLocation();
+
+                                                        context.goNamedAuth(
+                                                            'HomePage',
+                                                            context.mounted);
                                                       } else {
                                                         Navigator.pop(context);
                                                       }
