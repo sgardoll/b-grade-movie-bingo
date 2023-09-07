@@ -87,18 +87,15 @@ class _CardPickWidgetState extends State<CardPickWidget>
         return;
       }
 
-      if (await getPermissionStatus(microphonePermission)) {
-        _model.audioRecorder ??= Record();
-        if (await _model.audioRecorder!.hasPermission()) {
-          await _model.audioRecorder!.start();
-        } else {
-          showSnackbar(
-            context,
-            'You have not provided permission to record audio.',
-          );
-        }
-
-        _model.timerController.onExecute.add(StopWatchExecute.start);
+      _model.timerController.onExecute.add(StopWatchExecute.start);
+      _model.audioRecorder ??= Record();
+      if (await _model.audioRecorder!.hasPermission()) {
+        await _model.audioRecorder!.start();
+      } else {
+        showSnackbar(
+          context,
+          'You have not provided permission to record audio.',
+        );
       }
     });
 
