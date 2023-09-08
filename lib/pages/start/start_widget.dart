@@ -46,6 +46,7 @@ class _StartWidgetState extends State<StartWidget> {
     super.initState();
     _model = createModel(context, () => StartModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Start'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       var beingPlayedRecordReference = BeingPlayedRecord.collection.doc();
@@ -154,7 +155,7 @@ class _StartWidgetState extends State<StartWidget> {
             body: SafeArea(
               top: true,
               child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.00, 0.00),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -320,7 +321,7 @@ class _StartWidgetState extends State<StartWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
+                                  alignment: AlignmentDirectional(-1.00, 0.00),
                                   child: Container(
                                     width: 120.0,
                                     height: 120.0,
@@ -385,24 +386,32 @@ class _StartWidgetState extends State<StartWidget> {
                               ].divide(SizedBox(width: 8.0)),
                             ),
                           ),
-                          Expanded(
-                            child: wrapWithModel(
-                              model: _model.playersModel,
-                              updateCallback: () => setState(() {}),
-                              child: PlayersWidget(
-                                leadPlayerRef: widget.leadPlayerRef!,
-                                beingPlayedRef:
-                                    _model.newBeingPlayedDoc!.reference,
+                          if (valueOrDefault<bool>(
+                            _model.newBeingPlayedDoc?.reference.id != null &&
+                                    _model.newBeingPlayedDoc?.reference.id != ''
+                                ? true
+                                : false,
+                            false,
+                          ))
+                            Expanded(
+                              child: wrapWithModel(
+                                model: _model.playersModel,
+                                updateCallback: () => setState(() {}),
+                                updateOnChange: true,
+                                child: PlayersWidget(
+                                  leadPlayerRef: widget.leadPlayerRef!,
+                                  beingPlayedRef:
+                                      _model.newBeingPlayedDoc!.reference,
+                                ),
                               ),
                             ),
-                          ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Flexible(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
+                                      16.0, 0.0, 16.0, 8.0),
                                   child: AutoSizeText(
                                     'Click Start when you\'re ready for your game to begin',
                                     textAlign: TextAlign.center,

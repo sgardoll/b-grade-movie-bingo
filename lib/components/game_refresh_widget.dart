@@ -77,7 +77,7 @@ class _GameRefreshWidgetState extends State<GameRefreshWidget> {
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.00, 0.00),
                 child: Icon(
                   Icons.arrow_downward,
                   color: FlutterFlowTheme.of(context).alternate,
@@ -88,16 +88,16 @@ class _GameRefreshWidgetState extends State<GameRefreshWidget> {
           ),
           Flexible(
             child: Align(
-              alignment: AlignmentDirectional(0.0, 1.0),
+              alignment: AlignmentDirectional(0.00, 1.00),
               child: ClipRRect(
                 child: Container(
                   height: 50.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
                   ),
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.00, 0.00),
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.00, 0.00),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),

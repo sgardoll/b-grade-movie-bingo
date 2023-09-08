@@ -104,7 +104,7 @@ class _PlayersWidgetState extends State<PlayersWidget> {
                   final staggeredViewPlayersRecord =
                       staggeredViewPlayersRecordList[staggeredViewIndex];
                   return Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.00, 0.00),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           12.0, 12.0, 12.0, 12.0),
@@ -113,7 +113,7 @@ class _PlayersWidgetState extends State<PlayersWidget> {
                           color: Color(0x00FFFFFF),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               12.0, 12.0, 12.0, 12.0),

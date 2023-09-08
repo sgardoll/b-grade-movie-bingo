@@ -11,6 +11,7 @@ import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,6 +42,7 @@ class _JoinWidgetState extends State<JoinWidget> {
     super.initState();
     _model = createModel(context, () => JoinModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'join'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
@@ -48,8 +50,15 @@ class _JoinWidgetState extends State<JoinWidget> {
       });
     });
 
-    _model.textFieldJoinCodeController ??= TextEditingController(
-        text: _model.joinCode == 'IIIII' ? '' : widget.joinCode);
+    _model.textFieldJoinCodeController ??= TextEditingController(text: () {
+      if (_model.qrScanOutput != null && _model.qrScanOutput != '') {
+        return _model.qrScanOutput;
+      } else if (_model.joinCode == 'IIIII') {
+        return '';
+      } else {
+        return widget.joinCode;
+      }
+    }());
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -109,7 +118,7 @@ class _JoinWidgetState extends State<JoinWidget> {
                   key: _model.formKey,
                   autovalidateMode: AutovalidateMode.disabled,
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.00, 0.00),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -130,13 +139,12 @@ class _JoinWidgetState extends State<JoinWidget> {
                                       _model.textFieldJoinCodeController,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.textFieldJoinCodeController',
-                                    Duration(milliseconds: 2000),
+                                    Duration(milliseconds: 1000),
                                     () => setState(() {}),
                                   ),
-                                  autofocus: true,
                                   textCapitalization:
                                       TextCapitalization.characters,
-                                  textInputAction: TextInputAction.go,
+                                  textInputAction: TextInputAction.next,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: '5 digit join code',
@@ -147,8 +155,6 @@ class _JoinWidgetState extends State<JoinWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                         ),
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -160,23 +166,23 @@ class _JoinWidgetState extends State<JoinWidget> {
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -207,6 +213,9 @@ class _JoinWidgetState extends State<JoinWidget> {
                                   style:
                                       FlutterFlowTheme.of(context).titleLarge,
                                   textAlign: TextAlign.center,
+                                  maxLength: 5,
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
                                   validator: _model
                                       .textFieldJoinCodeControllerValidator
                                       .asValidator(context),

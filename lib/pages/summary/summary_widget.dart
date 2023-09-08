@@ -56,6 +56,8 @@ class _SummaryWidgetState extends State<SummaryWidget>
     super.initState();
     _model = createModel(context, () => SummaryModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Summary'});
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -117,7 +119,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                   color: Colors.transparent,
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, -2.0),
+                                  alignment: AlignmentDirectional(0.00, -2.00),
                                   child: wrapWithModel(
                                     model: _model.neonSignModel,
                                     updateCallback: () => setState(() {}),
@@ -325,7 +327,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                     },
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    alignment: AlignmentDirectional(0.00, 1.00),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 32.0, 0.0, 8.0),
@@ -333,7 +335,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                         height: 40.0,
                                         decoration: BoxDecoration(),
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -405,7 +407,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.00, 1.00),
                     child: FlutterFlowAdBanner(
                       height: 50.0,
                       showsTestAd: false,

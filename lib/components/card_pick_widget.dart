@@ -190,7 +190,8 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: Icon(
                                         Icons.movie,
                                         color: widget.color,
@@ -210,7 +211,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                               ),
                               Flexible(
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 8.0, 0.0, 0.0),
@@ -225,7 +226,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                                       ),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: AutoSizeText(
                                           valueOrDefault<String>(
                                             projectCardCardsRecord
@@ -255,7 +256,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.00, 1.00),
                     child: ClipRRect(
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
@@ -264,7 +265,7 @@ class _CardPickWidgetState extends State<CardPickWidget>
                           color: Colors.transparent,
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.00, 0.00),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(

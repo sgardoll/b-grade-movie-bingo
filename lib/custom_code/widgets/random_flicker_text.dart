@@ -18,8 +18,11 @@ class RandomFlickerText extends StatefulWidget {
   final double width;
   final double height;
 
-  RandomFlickerText(
-      {required this.text, required this.width, required this.height});
+  RandomFlickerText({
+    required this.text,
+    required this.width,
+    required this.height,
+  });
 
   @override
   _RandomFlickerTextState createState() => _RandomFlickerTextState();
@@ -29,7 +32,7 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
     with SingleTickerProviderStateMixin {
   late List<double> opacities;
   final random = Random();
-  Timer? _timer; // Declare the timer variable
+  Timer? _timer;
 
   @override
   void initState() {
@@ -41,7 +44,6 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
   void changeOpacity() {
     _timer = Timer(Duration(milliseconds: random.nextInt(1000)), () {
       if (mounted) {
-        // Check if the widget is still in the tree
         setState(() {
           int index = random.nextInt(widget.text.length);
           opacities[index] = opacities[index] == 0 ? 1 : 0;
@@ -53,35 +55,45 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
 
   @override
   void dispose() {
-    _timer?.cancel(); // Cancel the timer when disposing the widget
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center, // Center the text
-            children: widget.text.split('').asMap().entries.map((entry) {
-              return AnimatedOpacity(
-                opacity: opacities[entry.key],
-                duration: Duration(milliseconds: 500),
-                child: AutoSizeText(
-                  entry.value,
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontFamily: 'Neon Glow',
-                    color: Colors.white,
-                  ),
-                  maxLines: 1,
+    return Flexible(
+      child: Align(
+        alignment: AlignmentDirectional(0.00, 1.00),
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+          child: Container(
+            width: widget.width,
+            height: widget.height,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: widget.text.split('').asMap().entries.map((entry) {
+                    return AnimatedOpacity(
+                      opacity: opacities[entry.key],
+                      duration: Duration(milliseconds: 500),
+                      child: AutoSizeText(
+                        entry.value,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontFamily: 'Neon Glow',
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              );
-            }).toList(),
+              ),
+            ),
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/admob_util.dart' as admob;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class _WaitingWidgetState extends State<WaitingWidget> {
     super.initState();
     _model = createModel(context, () => WaitingModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Waiting'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       admob.loadInterstitialAd(
@@ -121,7 +123,7 @@ class _WaitingWidgetState extends State<WaitingWidget> {
             body: SafeArea(
               top: true,
               child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.00, 0.00),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,16 +136,24 @@ class _WaitingWidgetState extends State<WaitingWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                     ),
-                    Expanded(
-                      child: wrapWithModel(
-                        model: _model.playersModel,
-                        updateCallback: () => setState(() {}),
-                        child: PlayersWidget(
-                          leadPlayerRef: waitingBeingPlayedRecord.leadPlayer!,
-                          beingPlayedRef: widget.beingPlayedDoc!.reference,
+                    if (valueOrDefault<bool>(
+                      waitingBeingPlayedRecord.reference.id != null &&
+                              waitingBeingPlayedRecord.reference.id != ''
+                          ? true
+                          : false,
+                      false,
+                    ))
+                      Expanded(
+                        child: wrapWithModel(
+                          model: _model.playersModel,
+                          updateCallback: () => setState(() {}),
+                          updateOnChange: true,
+                          child: PlayersWidget(
+                            leadPlayerRef: waitingBeingPlayedRecord.leadPlayer!,
+                            beingPlayedRef: widget.beingPlayedDoc!.reference,
+                          ),
                         ),
                       ),
-                    ),
                     if (valueOrDefault<bool>(
                       widget.beingPlayedDoc?.status == 'Waiting',
                       true,

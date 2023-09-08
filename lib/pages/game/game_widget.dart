@@ -73,6 +73,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
     super.initState();
     _model = createModel(context, () => GameModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Game'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await requestPermission(microphonePermission);
@@ -153,7 +154,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: AlignmentDirectional(0.0, 1.0),
+                              alignment: AlignmentDirectional(0.00, 1.00),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 child: Stack(
@@ -310,12 +311,13 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                                               ),
                                                               alignment:
                                                                   AlignmentDirectional(
-                                                                      0.0, 0.0),
+                                                                      0.00,
+                                                                      0.00),
                                                               child: Align(
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0),
+                                                                        0.00,
+                                                                        0.00),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
@@ -376,7 +378,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                         ),
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, -2.0),
+                                              AlignmentDirectional(0.00, -2.00),
                                           child: wrapWithModel(
                                             model: _model.neonSignModel,
                                             updateCallback: () =>
@@ -411,7 +413,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                     ))
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.00, 1.00),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -419,8 +421,8 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                           child: Container(
                                             height: 40.0,
                                             decoration: BoxDecoration(),
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -525,7 +527,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                     ))
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 1.0),
+                                            AlignmentDirectional(0.00, 1.00),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -533,8 +535,8 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                           child: Container(
                                             height: 40.0,
                                             decoration: BoxDecoration(),
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -659,7 +661,7 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.00, 1.00),
                   child: FlutterFlowAdBanner(
                     height: 50.0,
                     showsTestAd: false,

@@ -63,7 +63,7 @@ class _CardSummaryWidgetState extends State<CardSummaryWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: FlutterFlowAudioPlayer(
         audio: Audio.network(
           widget.audio!,

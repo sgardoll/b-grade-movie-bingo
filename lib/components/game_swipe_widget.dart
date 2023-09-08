@@ -38,6 +38,33 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
   late GameSwipeModel _model;
 
   final animationsMap = {
+    'containerOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        TiltEffect(
+          curve: Curves.easeIn,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0, 0),
+          end: Offset(0, -0.175),
+        ),
+        MoveEffect(
+          curve: Curves.bounceOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 0.0),
+          end: Offset(0.0, -11.0),
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(1.0, 1.0),
+          end: Offset(1.0, 1.0),
+        ),
+      ],
+    ),
     'imageOnActionTriggerAnimation': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
       applyInitialState: true,
@@ -86,7 +113,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: InkWell(
@@ -107,6 +134,11 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
               FFAppState().gameSelected = widget.gameRef;
               FFAppState().gameIsSelected = true;
             });
+            if (animationsMap['containerOnActionTriggerAnimation'] != null) {
+              animationsMap['containerOnActionTriggerAnimation']!
+                  .controller
+                  .forward(from: 0.0);
+            }
           },
           child: Material(
             color: Colors.transparent,
@@ -158,7 +190,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                     alignment: AlignmentDirectional(0.0, 0.0),
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, -1.0),
+                        alignment: AlignmentDirectional(0.00, -1.00),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(25.0),
                           child: Image.network(
@@ -188,7 +220,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: AlignmentDirectional(0.00, 1.00),
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -201,7 +233,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: AlignmentDirectional(-1.00, -1.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 0.0, 0.0),
@@ -214,7 +246,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                                 color: Color(0x98FFFFFF),
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Icon(
                                 Icons.movie_sharp,
                                 color: valueOrDefault<Color>(
@@ -229,7 +261,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.00, 1.00),
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(25.0),
@@ -257,9 +289,9 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                                 topRight: Radius.circular(0.0),
                               ),
                             ),
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: AlignmentDirectional(0.00, 1.00),
                             child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
@@ -269,7 +301,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                                   Flexible(
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          AlignmentDirectional(-1.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
@@ -290,7 +322,8 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                                   ),
                                   Flexible(
                                     child: Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(1.00, 0.00),
                                       child: Container(
                                         width: 44.0,
                                         height: 44.0,
@@ -316,6 +349,8 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
               ),
             ),
           ),
+        ).animateOnActionTrigger(
+          animationsMap['containerOnActionTriggerAnimation']!,
         ),
       ),
     );

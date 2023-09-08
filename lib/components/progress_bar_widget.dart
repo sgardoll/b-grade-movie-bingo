@@ -90,7 +90,7 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: AlignmentDirectional(0.00, 0.00),
             child: LinearPercentIndicator(
               percent: valueOrDefault<double>(
                 1 - (double.tryParse(_model.timerValue) ?? 0) / 15,
@@ -106,7 +106,7 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(1.0, 0.0),
+            alignment: AlignmentDirectional(1.00, 0.00),
             child: Container(
               width: 38.0,
               height: 36.0,
@@ -114,7 +114,7 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.00, 0.00),
               child: Icon(
                 Icons.keyboard_voice_rounded,
                 color: widget.parameter1,
@@ -129,7 +129,7 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget> {
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: AlignmentDirectional(0.00, 0.00),
             child: Text(
               _model.timerValue,
               style: FlutterFlowTheme.of(context).bodyMedium.override(

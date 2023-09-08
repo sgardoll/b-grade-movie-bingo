@@ -45,7 +45,7 @@ class _StartEnterNameWidgetState extends State<StartEnterNameWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, -1.0),
+      alignment: AlignmentDirectional(0.00, -1.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(12.0, 32.0, 12.0, 12.0),
         child: Container(
@@ -75,7 +75,7 @@ class _StartEnterNameWidgetState extends State<StartEnterNameWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.00, 0.00),
                       child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
@@ -87,7 +87,7 @@ class _StartEnterNameWidgetState extends State<StartEnterNameWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.00, 0.00),
                       child: Text(
                         'Ready, Set, Name...',
                         textAlign: TextAlign.center,
@@ -154,7 +154,7 @@ class _StartEnterNameWidgetState extends State<StartEnterNameWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(1.0, 0.0),
+                alignment: AlignmentDirectional(1.00, 0.00),
                 child: Padding(
                   padding:
                       EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),

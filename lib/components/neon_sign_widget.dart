@@ -59,12 +59,12 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 1.0),
+      alignment: AlignmentDirectional(0.00, 1.00),
       child: Stack(
         alignment: AlignmentDirectional(0.0, 1.0),
         children: [
           Align(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: AlignmentDirectional(0.00, 1.00),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
               child: Material(
@@ -85,14 +85,14 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                       ),
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.00, 1.00),
                   ),
                 ),
               ),
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: AlignmentDirectional(0.00, 1.00),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
               child: ClipRRect(
@@ -104,9 +104,9 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(25.0),
                   ),
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.00, 1.00),
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.00, 1.00),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
@@ -116,9 +116,9 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                         ),
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.00, 1.00),
                         child: Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: AlignmentDirectional(0.00, 1.00),
                           child: ClipRect(
                             child: ImageFiltered(
                               imageFilter: ImageFilter.blur(
@@ -126,7 +126,7 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                                 sigmaY: 4.0,
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.00, 1.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 16.0),
@@ -157,7 +157,7 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: AlignmentDirectional(0.00, 1.00),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 50.0, 16.0, 16.0),
               child: Container(
@@ -173,7 +173,7 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                   children: [
                     Flexible(
                       child: Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.00, 1.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 16.0),
