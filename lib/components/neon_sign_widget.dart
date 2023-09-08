@@ -117,37 +117,51 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                           color: Colors.transparent,
                         ),
                         alignment: AlignmentDirectional(0.00, 1.00),
-                        child: Align(
-                          alignment: AlignmentDirectional(0.00, 1.00),
-                          child: ClipRect(
-                            child: ImageFiltered(
-                              imageFilter: ImageFilter.blur(
-                                sigmaX: 4.0,
-                                sigmaY: 4.0,
-                              ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Flexible(
                               child: Align(
                                 alignment: AlignmentDirectional(0.00, 1.00),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 16.0),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 1.0,
-                                    child: custom_widgets.RandomFlickerText(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
+                                child: ClipRect(
+                                  child: ImageFiltered(
+                                    imageFilter: ImageFilter.blur(
+                                      sigmaX: 4.0,
+                                      sigmaY: 4.0,
+                                    ),
+                                    child: Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 1.00),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 16.0),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
                                               1.0,
-                                      text: widget.signText!,
+                                          child:
+                                              custom_widgets.RandomFlickerText(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                1.0,
+                                            text: widget.signText!,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),
