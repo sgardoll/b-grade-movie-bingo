@@ -58,167 +58,83 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Align(
-      alignment: AlignmentDirectional(0.00, 1.00),
-      child: Stack(
-        alignment: AlignmentDirectional(0.0, 1.0),
-        children: [
-          Align(
-            alignment: AlignmentDirectional(0.00, 1.00),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
-              child: Material(
-                color: Colors.transparent,
-                elevation: 6.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25.0),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: MediaQuery.sizeOf(context).height * 1.0,
-                    decoration: BoxDecoration(
-                      color: valueOrDefault<Color>(
-                        widget.signBgColor,
-                        Color(0x25666666),
-                      ),
-                      borderRadius: BorderRadius.circular(25.0),
-                    ),
-                    alignment: AlignmentDirectional(0.00, 1.00),
-                  ),
-                ),
+    return Stack(
+      children: [
+        Align(
+          alignment: AlignmentDirectional(0.00, 1.00),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+            child: Material(
+              color: Colors.transparent,
+              elevation: 6.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
               ),
-            ),
-          ),
-          Align(
-            alignment: AlignmentDirectional(0.00, 1.00),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25.0),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
                   height: MediaQuery.sizeOf(context).height * 1.0,
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
+                    color: valueOrDefault<Color>(
+                      widget.signBgColor,
+                      Color(0x25666666),
+                    ),
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   alignment: AlignmentDirectional(0.00, 1.00),
-                  child: Align(
-                    alignment: AlignmentDirectional(0.00, 1.00),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: MediaQuery.sizeOf(context).height * 1.0,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                        ),
-                        alignment: AlignmentDirectional(0.00, 1.00),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Flexible(
-                              child: Align(
-                                alignment: AlignmentDirectional(0.00, 1.00),
-                                child: ClipRect(
-                                  child: ImageFiltered(
-                                    imageFilter: ImageFilter.blur(
-                                      sigmaX: 4.0,
-                                      sigmaY: 4.0,
-                                    ),
-                                    child: Align(
-                                      alignment:
-                                          AlignmentDirectional(0.00, 1.00),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 16.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  1.0,
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              1.0,
-                                          child:
-                                              custom_widgets.RandomFlickerText(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                1.0,
-                                            text: widget.signText!,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(0.00, 1.00),
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: 100.0,
+            decoration: BoxDecoration(),
+            alignment: AlignmentDirectional(0.00, 1.00),
+            child: ClipRect(
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(
+                  sigmaX: 4.0,
+                  sigmaY: 4.0,
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.00, 1.00),
+                  child: custom_widgets.RandomFlickerText(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 1.0,
+                    text: widget.signText!,
                   ),
                 ),
               ),
             ),
           ),
-          Align(
-            alignment: AlignmentDirectional(0.00, 1.00),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 50.0, 16.0, 16.0),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: MediaQuery.sizeOf(context).height * 1.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Flexible(
-                      child: Align(
-                        alignment: AlignmentDirectional(0.00, 1.00),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 16.0),
-                          child: AutoSizeText(
-                            widget.signText!,
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            style: FlutterFlowTheme.of(context)
-                                .displayLarge
-                                .override(
-                                  fontFamily: 'Neon Glow',
-                                  color: valueOrDefault<Color>(
-                                    widget.color,
-                                    FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  fontSize: 50.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                      ),
+        ),
+        Align(
+          alignment: AlignmentDirectional(0.00, 1.00),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+            child: AutoSizeText(
+              widget.signText!,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              style: FlutterFlowTheme.of(context).displayLarge.override(
+                    fontFamily: 'Neon Glow',
+                    color: valueOrDefault<Color>(
+                      widget.color,
+                      FlutterFlowTheme.of(context).secondaryBackground,
                     ),
-                  ],
-                ),
-              ),
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.bold,
+                    useGoogleFonts: false,
+                  ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

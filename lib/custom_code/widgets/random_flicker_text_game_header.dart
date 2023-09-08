@@ -13,22 +13,26 @@ import 'dart:async';
 import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class RandomFlickerText extends StatefulWidget {
+class RandomFlickerTextGameHeader extends StatefulWidget {
   final String text;
-  final double width;
+  final double? width;
   final double height;
+  final Color textColor;
 
-  RandomFlickerText({
+  RandomFlickerTextGameHeader({
     required this.text,
-    required this.width,
+    this.width,
     required this.height,
+    required this.textColor,
   });
 
   @override
-  _RandomFlickerTextState createState() => _RandomFlickerTextState();
+  _RandomFlickerTextGameHeaderState createState() =>
+      _RandomFlickerTextGameHeaderState();
 }
 
-class _RandomFlickerTextState extends State<RandomFlickerText>
+class _RandomFlickerTextGameHeaderState
+    extends State<RandomFlickerTextGameHeader>
     with SingleTickerProviderStateMixin {
   late List<double> opacities;
   final random = Random();
@@ -42,7 +46,7 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
   }
 
   void changeOpacity() {
-    _timer = Timer(Duration(milliseconds: random.nextInt(500)), () {
+    _timer = Timer(Duration(milliseconds: random.nextInt(2000)), () {
       if (mounted) {
         setState(() {
           int index = random.nextInt(widget.text.length);
@@ -61,33 +65,43 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
 
   @override
   Widget build(BuildContext context) {
+    double containerWidth = widget.width ?? MediaQuery.of(context).size.width;
+
     return Align(
       alignment: AlignmentDirectional(0.00, 1.00),
       child: Container(
-        width: widget.width,
+        width: containerWidth,
         height: widget.height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
         ),
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: widget.text.split('').asMap().entries.map((entry) {
-              return AnimatedOpacity(
-                opacity: opacities[entry.key],
-                duration: Duration(milliseconds: 500),
-                child: AutoSizeText(
-                  entry.value,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontFamily: 'Neon Glow',
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: widget.text.split(' ').expand((word) {
+              return [
+                Wrap(
+                  direction: Axis.horizontal,
+                  children: word.split('').asMap().entries.map((entry) {
+                    return AnimatedOpacity(
+                      opacity: opacities[entry.key],
+                      duration: Duration(milliseconds: 500),
+                      child: AutoSizeText(
+                        entry.value,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontFamily: 'Neon Glow',
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: widget.textColor,
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              );
+                Text(' '), // This adds a space between words
+              ];
             }).toList(),
           ),
         ),
