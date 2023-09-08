@@ -72,7 +72,7 @@ class _WaitingWidgetState extends State<WaitingWidget> {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: FlutterFlowTheme.of(context).accent4,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -90,7 +90,7 @@ class _WaitingWidgetState extends State<WaitingWidget> {
           onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).accent4,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             appBar: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
               automaticallyImplyLeading: false,
@@ -132,7 +132,7 @@ class _WaitingWidgetState extends State<WaitingWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Text(
-                        'Your fellow players are',
+                        'Your fellow players are:',
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                     ),

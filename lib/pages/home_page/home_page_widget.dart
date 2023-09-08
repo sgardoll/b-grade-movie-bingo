@@ -150,7 +150,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).accent4,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Column(
@@ -302,11 +302,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       dotWidth: 16.0,
                                                       dotHeight: 8.0,
                                                       dotColor:
-                                                          Color(0x40FFFFFF),
+                                                          Color(0x87333333),
                                                       activeDotColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondaryBackground,
+                                                              .primary,
                                                       paintStyle:
                                                           PaintingStyle.fill,
                                                     ),
