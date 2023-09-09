@@ -42,7 +42,7 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
   }
 
   void changeOpacity() {
-    _timer = Timer(Duration(milliseconds: random.nextInt(500)), () {
+    _timer = Timer(Duration(milliseconds: random.nextInt(100)), () {
       if (mounted) {
         setState(() {
           int index = random.nextInt(widget.text.length);
@@ -75,7 +75,7 @@ class _RandomFlickerTextState extends State<RandomFlickerText>
             children: widget.text.split('').asMap().entries.map((entry) {
               return AnimatedOpacity(
                 opacity: opacities[entry.key],
-                duration: Duration(milliseconds: 500),
+                duration: Duration(milliseconds: 100),
                 child: AutoSizeText(
                   entry.value,
                   textAlign: TextAlign.center,

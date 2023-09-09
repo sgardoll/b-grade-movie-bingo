@@ -38,7 +38,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
   late GameSwipeModel _model;
 
   final animationsMap = {
-    'containerOnActionTriggerAnimation': AnimationInfo(
+    'containerOnActionTriggerAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
       applyInitialState: true,
       effects: [
@@ -47,21 +47,21 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
           delay: 0.ms,
           duration: 600.ms,
           begin: Offset(0, 0),
-          end: Offset(0, -0.175),
+          end: Offset(0, -0.262),
         ),
         MoveEffect(
           curve: Curves.bounceOut,
           delay: 0.ms,
           duration: 600.ms,
           begin: Offset(0.0, 0.0),
-          end: Offset(0.0, -11.0),
+          end: Offset(1.0, -22.0),
         ),
         ScaleEffect(
-          curve: Curves.easeInOut,
+          curve: Curves.bounceOut,
           delay: 0.ms,
           duration: 600.ms,
           begin: Offset(1.0, 1.0),
-          end: Offset(1.0, 1.0),
+          end: Offset(1.1, 1.2),
         ),
       ],
     ),
@@ -74,6 +74,19 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
           delay: 0.ms,
           duration: 600.ms,
           begin: 0.5,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
           end: 1.0,
         ),
       ],
@@ -115,7 +128,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
     return Align(
       alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+        padding: EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 0.0),
         child: InkWell(
           splashColor: Colors.transparent,
           focusColor: Colors.transparent,
@@ -134,8 +147,8 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
               FFAppState().gameSelected = widget.gameRef;
               FFAppState().gameIsSelected = true;
             });
-            if (animationsMap['containerOnActionTriggerAnimation'] != null) {
-              animationsMap['containerOnActionTriggerAnimation']!
+            if (animationsMap['containerOnActionTriggerAnimation1'] != null) {
+              animationsMap['containerOnActionTriggerAnimation1']!
                   .controller
                   .forward(from: 0.0);
             }
@@ -206,31 +219,26 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
                           animationsMap['imageOnActionTriggerAnimation']!,
                         ),
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
-                        child: Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: MediaQuery.sizeOf(context).height * 1.0,
-                          constraints: BoxConstraints(
-                            maxWidth: 400.0,
-                            maxHeight: 265.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.00, 1.00),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [],
-                              ),
-                            ),
-                          ),
+                      Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        constraints: BoxConstraints(
+                          maxWidth: 400.0,
+                          maxHeight: 265.0,
                         ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 12.0,
+                              color: widget.color,
+                              offset: Offset(0.0, 5.0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ).animateOnActionTrigger(
+                        animationsMap['containerOnActionTriggerAnimation2']!,
                       ),
                       Align(
                         alignment: AlignmentDirectional(-1.00, -1.00),
@@ -350,7 +358,7 @@ class _GameSwipeWidgetState extends State<GameSwipeWidget>
             ),
           ),
         ).animateOnActionTrigger(
-          animationsMap['containerOnActionTriggerAnimation']!,
+          animationsMap['containerOnActionTriggerAnimation1']!,
         ),
       ),
     );

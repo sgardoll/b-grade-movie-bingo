@@ -41,7 +41,8 @@ class _RandomFlickerTextGameHeaderState
   @override
   void initState() {
     super.initState();
-    opacities = List<double>.filled(widget.text.length, 1);
+    opacities =
+        List<double>.filled(widget.text.length, 1); // All initialized to 1
     changeOpacity();
   }
 
@@ -50,7 +51,8 @@ class _RandomFlickerTextGameHeaderState
       if (mounted) {
         setState(() {
           int index = random.nextInt(widget.text.length);
-          opacities[index] = opacities[index] == 0 ? 1 : 0;
+          opacities[index] =
+              opacities[index] == 0.75 ? 1 : 0.75; // Changing this line
           changeOpacity();
         });
       }

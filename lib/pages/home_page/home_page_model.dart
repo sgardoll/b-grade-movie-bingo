@@ -23,6 +23,8 @@ class HomePageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for NeonSign component.
+  late NeonSignModel neonSignModel;
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -39,20 +41,18 @@ class HomePageModel extends FlutterFlowModel {
   String? leadPlayerName;
   // Stores action output result for [Custom Action - getRandomString] action in ButtonStart widget.
   String? joinCode5Digits;
-  // Model for NeonSign component.
-  late NeonSignModel neonSignModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    gameSwipeModels = FlutterFlowDynamicModels(() => GameSwipeModel());
     neonSignModel = createModel(context, () => NeonSignModel());
+    gameSwipeModels = FlutterFlowDynamicModels(() => GameSwipeModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    gameSwipeModels.dispose();
     neonSignModel.dispose();
+    gameSwipeModels.dispose();
   }
 
   /// Action blocks are added here.
