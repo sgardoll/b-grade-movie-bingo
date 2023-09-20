@@ -94,7 +94,7 @@ class _RandomFlickerTextGameHeaderState
                         maxLines: 2,
                         style: TextStyle(
                           fontFamily: 'Neon Glow',
-                          fontSize: 50,
+                          fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: widget.textColor,
                         ),

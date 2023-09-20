@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/navigator_widgets/end_game/end_game_widget.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
@@ -29,13 +30,18 @@ class GameModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Card widget.
   String? cardAudio;
+  // Model for EndGame component.
+  late EndGameModel endGameModel;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    endGameModel = createModel(context, () => EndGameModel());
+  }
 
   void dispose() {
     unfocusNode.dispose();
+    endGameModel.dispose();
   }
 
   /// Action blocks are added here.

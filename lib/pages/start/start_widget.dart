@@ -25,12 +25,15 @@ class StartWidget extends StatefulWidget {
     String? joinCode,
     required this.leadPlayerRef,
     required this.cardGameRef,
+    Color? color,
   })  : this.joinCode = joinCode ?? 'IIIII',
+        this.color = color ?? const Color(0xFFFF0000),
         super(key: key);
 
   final String joinCode;
   final DocumentReference? leadPlayerRef;
   final DocumentReference? cardGameRef;
+  final Color color;
 
   @override
   _StartWidgetState createState() => _StartWidgetState();
@@ -144,7 +147,7 @@ class _StartWidgetState extends State<StartWidget> {
                 'Start A Game',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: widget.color,
                       fontSize: 22.0,
                     ),
               ),
@@ -173,116 +176,86 @@ class _StartWidgetState extends State<StartWidget> {
                               style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 8.0, 0.0),
-                                    child: TextFormField(
-                                      controller: _model.textController,
-                                      readOnly: true,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: TextFormField(
+                                        controller: _model.textController,
+                                        readOnly: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium,
+                                          hintStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                          filled: true,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
                                         ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleLarge,
+                                        textAlign: TextAlign.center,
+                                        validator: _model
+                                            .textControllerValidator
+                                            .asValidator(context),
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleLarge,
-                                      textAlign: TextAlign.center,
-                                      validator: _model.textControllerValidator
-                                          .asValidator(context),
                                     ),
                                   ),
-                                ),
-                                FlutterFlowIconButton(
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).alternate,
-                                  borderRadius: 20.0,
-                                  borderWidth: 2.0,
-                                  buttonSize: 40.0,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  icon: Icon(
-                                    Icons.content_copy_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 24.0,
-                                  ),
-                                  showLoadingIndicator: true,
-                                  onPressed: () async {
-                                    await Clipboard.setData(ClipboardData(
-                                        text: valueOrDefault<String>(
-                                      widget.joinCode,
-                                      'IIIII',
-                                    )));
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Copied to clipboard',
-                                          style: GoogleFonts.getFont(
-                                            'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
-                                    );
-                                  },
-                                ),
-                                Builder(
-                                  builder: (context) => FlutterFlowIconButton(
+                                  FlutterFlowIconButton(
                                     borderColor:
                                         FlutterFlowTheme.of(context).alternate,
                                     borderRadius: 20.0,
@@ -291,25 +264,69 @@ class _StartWidgetState extends State<StartWidget> {
                                     fillColor: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     icon: Icon(
-                                      Icons.share_sharp,
+                                      Icons.content_copy_outlined,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       size: 24.0,
                                     ),
                                     showLoadingIndicator: true,
                                     onPressed: () async {
-                                      await Share.share(
-                                        'https://moviebingo.page.link/join?${valueOrDefault<String>(
-                                          widget.joinCode,
-                                          'IIIII',
-                                        )}',
-                                        sharePositionOrigin:
-                                            getWidgetBoundingBox(context),
+                                      await Clipboard.setData(ClipboardData(
+                                          text: valueOrDefault<String>(
+                                        widget.joinCode,
+                                        'IIIII',
+                                      )));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Copied to clipboard',
+                                            style: GoogleFonts.getFont(
+                                              'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
                                       );
                                     },
                                   ),
-                                ),
-                              ].divide(SizedBox(width: 16.0)),
+                                  Builder(
+                                    builder: (context) => FlutterFlowIconButton(
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      borderRadius: 20.0,
+                                      borderWidth: 2.0,
+                                      buttonSize: 40.0,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      icon: Icon(
+                                        Icons.share_sharp,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 24.0,
+                                      ),
+                                      showLoadingIndicator: true,
+                                      onPressed: () async {
+                                        await Share.share(
+                                          'https://moviebingo.page.link/join?${valueOrDefault<String>(
+                                            widget.joinCode,
+                                            'IIIII',
+                                          )}',
+                                          sharePositionOrigin:
+                                              getWidgetBoundingBox(context),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ].divide(SizedBox(width: 16.0)),
+                              ),
                             ),
                           ),
                           Padding(
@@ -317,7 +334,7 @@ class _StartWidgetState extends State<StartWidget> {
                                 16.0, 8.0, 16.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Align(
@@ -364,15 +381,12 @@ class _StartWidgetState extends State<StartWidget> {
                                 ),
                                 Flexible(
                                   child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
                                     decoration: BoxDecoration(
                                       color: Colors.transparent,
                                     ),
                                     child: AutoSizeText(
                                       'Let your friends know the code and when they join they will appear below.',
                                       textAlign: TextAlign.center,
-                                      maxLines: 5,
                                       style: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .override(
@@ -386,25 +400,47 @@ class _StartWidgetState extends State<StartWidget> {
                               ].divide(SizedBox(width: 8.0)),
                             ),
                           ),
-                          if (valueOrDefault<bool>(
-                            _model.newBeingPlayedDoc?.reference.id != null &&
-                                    _model.newBeingPlayedDoc?.reference.id != ''
-                                ? true
-                                : false,
-                            false,
-                          ))
-                            Expanded(
-                              child: wrapWithModel(
-                                model: _model.playersModel,
-                                updateCallback: () => setState(() {}),
-                                updateOnChange: true,
-                                child: PlayersWidget(
-                                  leadPlayerRef: widget.leadPlayerRef!,
-                                  beingPlayedRef:
-                                      _model.newBeingPlayedDoc!.reference,
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 8.0, 16.0, 8.0),
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: MediaQuery.sizeOf(context).height * 1.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  border: Border.all(
+                                    width: 2.0,
+                                  ),
+                                ),
+                                alignment: AlignmentDirectional(0.00, 0.00),
+                                child: Visibility(
+                                  visible: valueOrDefault<bool>(
+                                    _model.newBeingPlayedDoc?.reference.id !=
+                                                null &&
+                                            _model.newBeingPlayedDoc?.reference
+                                                    .id !=
+                                                ''
+                                        ? true
+                                        : false,
+                                    false,
+                                  ),
+                                  child: wrapWithModel(
+                                    model: _model.playersModel,
+                                    updateCallback: () => setState(() {}),
+                                    updateOnChange: true,
+                                    child: PlayersWidget(
+                                      leadPlayerRef: widget.leadPlayerRef!,
+                                      beingPlayedRef:
+                                          _model.newBeingPlayedDoc!.reference,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
+                          ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -497,13 +533,13 @@ class _StartWidgetState extends State<StartWidget> {
                                       0.0, 0.0, 0.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 8.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).secondary,
+                                  color: widget.color,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: 'Neon Glow',
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                            .cultured,
                                         fontSize: 30.0,
                                         useGoogleFonts: false,
                                       ),

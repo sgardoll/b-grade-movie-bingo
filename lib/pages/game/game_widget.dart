@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/navigator_widgets/end_game/end_game_widget.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
@@ -152,254 +153,351 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Stack(
                           children: [
-                            Flexible(
-                              flex: 1,
-                              child: Align(
-                                alignment: AlignmentDirectional(0.00, -1.00),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                    ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment:
+                                        AlignmentDirectional(0.00, -1.00),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 24.0, 16.0, 0.0),
+                                          0.0, 0.0, 0.0, 16.0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height: 100.0,
-                                        child: custom_widgets
-                                            .RandomFlickerTextGameHeader(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  1.0,
-                                          height: 100.0,
-                                          text: columnCardsRecord.gameName,
-                                          textColor: valueOrDefault<Color>(
-                                            columnCardsRecord.color,
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                          ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.transparent,
                                         ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'containerOnPageLoadAnimation']!),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 24.0, 16.0, 0.0),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: 100.0,
+                                            child: custom_widgets
+                                                .RandomFlickerTextGameHeader(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  1.0,
+                                              height: 100.0,
+                                              text: columnCardsRecord.gameName,
+                                              textColor: valueOrDefault<Color>(
+                                                columnCardsRecord.color,
+                                                Color(0xFFFF4A00),
+                                              ),
+                                            ),
+                                          ).animateOnPageLoad(animationsMap[
+                                              'containerOnPageLoadAnimation']!),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                            Flexible(
-                              flex: 5,
-                              child: Align(
-                                alignment: AlignmentDirectional(0.00, -1.00),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 0.0),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 16.0),
-                                        child: Builder(
-                                          builder: (context) {
-                                            final cardItems = columnCardsRecord
-                                                .cardsTexts
-                                                .toList();
-                                            return MasonryGridView.count(
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              crossAxisCount: 2,
-                                              crossAxisSpacing: 8.0,
-                                              mainAxisSpacing: 8.0,
-                                              itemCount: cardItems.length,
-                                              shrinkWrap: true,
-                                              itemBuilder:
-                                                  (context, cardItemsIndex) {
-                                                final cardItemsItem =
-                                                    cardItems[cardItemsIndex];
-                                                return Builder(
-                                                  builder: (context) => InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await showAlignedDialog(
-                                                        barrierColor:
-                                                            Color(0xBF000000),
-                                                        barrierDismissible:
-                                                            false,
-                                                        context: context,
-                                                        isGlobal: false,
-                                                        avoidOverflow: true,
-                                                        targetAnchor:
-                                                            AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        followerAnchor:
-                                                            AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        builder:
-                                                            (dialogContext) {
-                                                          return Material(
-                                                            color: Colors
-                                                                .transparent,
+                            Align(
+                              alignment: AlignmentDirectional(0.00, -1.00),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 8.0, 0.0, 0.0),
+                                child: ListView(
+                                  padding: EdgeInsets.zero,
+                                  primary: false,
+                                  scrollDirection: Axis.vertical,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 100.0, 16.0, 50.0),
+                                      child: Builder(
+                                        builder: (context) {
+                                          final cardItems = columnCardsRecord
+                                              .cardsTexts
+                                              .toList();
+                                          return MasonryGridView.count(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 8.0,
+                                            mainAxisSpacing: 8.0,
+                                            itemCount: cardItems.length,
+                                            shrinkWrap: true,
+                                            itemBuilder:
+                                                (context, cardItemsIndex) {
+                                              final cardItemsItem =
+                                                  cardItems[cardItemsIndex];
+                                              return Builder(
+                                                builder: (context) => InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await showAlignedDialog(
+                                                      barrierColor:
+                                                          Color(0xBF000000),
+                                                      barrierDismissible: false,
+                                                      context: context,
+                                                      isGlobal: false,
+                                                      avoidOverflow: true,
+                                                      targetAnchor:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      followerAnchor:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      builder: (dialogContext) {
+                                                        return Material(
+                                                          color: Colors
+                                                              .transparent,
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => FocusScope
+                                                                    .of(context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode),
                                                             child:
-                                                                GestureDetector(
-                                                              onTap: () => FocusScope
-                                                                      .of(
-                                                                          context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode),
-                                                              child:
-                                                                  CardPickWidget(
-                                                                cardRef:
-                                                                    columnCardsRecord
-                                                                        .reference,
-                                                                index:
-                                                                    cardItemsIndex,
-                                                                color:
-                                                                    columnCardsRecord
-                                                                        .color!,
-                                                              ),
+                                                                CardPickWidget(
+                                                              cardRef:
+                                                                  columnCardsRecord
+                                                                      .reference,
+                                                              index:
+                                                                  cardItemsIndex,
+                                                              color:
+                                                                  columnCardsRecord
+                                                                      .color!,
                                                             ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          setState(() =>
-                                                              _model.cardAudio =
-                                                                  value));
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() =>
+                                                            _model.cardAudio =
+                                                                value));
 
-                                                      await gameBeingPlayedRecord
-                                                          .reference
-                                                          .update({
-                                                        'playerSelections':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          getPlayerSelectionsFirestoreData(
-                                                            createPlayerSelectionsStruct(
-                                                              timestamp:
-                                                                  getCurrentTimestamp,
-                                                              audioPath: _model
-                                                                  .cardAudio,
-                                                              player:
-                                                                  FFAppState()
-                                                                      .playerRef,
-                                                              cardText:
-                                                                  cardItemsItem,
-                                                              clearUnsetFields:
-                                                                  false,
-                                                            ),
-                                                            true,
-                                                          )
-                                                        ]),
-                                                      });
+                                                    await gameBeingPlayedRecord
+                                                        .reference
+                                                        .update({
+                                                      'playerSelections':
+                                                          FieldValue
+                                                              .arrayUnion([
+                                                        getPlayerSelectionsFirestoreData(
+                                                          createPlayerSelectionsStruct(
+                                                            timestamp:
+                                                                getCurrentTimestamp,
+                                                            audioPath: _model
+                                                                .cardAudio,
+                                                            player: FFAppState()
+                                                                .playerRef,
+                                                            cardText:
+                                                                cardItemsItem,
+                                                            clearUnsetFields:
+                                                                false,
+                                                          ),
+                                                          true,
+                                                        )
+                                                      ]),
+                                                    });
 
-                                                      setState(() {});
-                                                    },
-                                                    child: Material(
-                                                      color: Colors.transparent,
-                                                      elevation: 2.0,
-                                                      shape:
-                                                          RoundedRectangleBorder(
+                                                    setState(() {});
+                                                  },
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    elevation: 2.0,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    child: Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        color: valueOrDefault<
+                                                            Color>(
+                                                          columnCardsRecord
+                                                              .color,
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                        ),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(12.0),
                                                       ),
-                                                      child: Container(
-                                                        width: 100.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: valueOrDefault<
-                                                              Color>(
-                                                            columnCardsRecord
-                                                                .color,
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      12.0),
-                                                        ),
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.00, 0.00),
+                                                      child: Align(
                                                         alignment:
                                                             AlignmentDirectional(
                                                                 0.00, 0.00),
-                                                        child: Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0.00, 0.00),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        16.0,
-                                                                        16.0,
-                                                                        16.0,
-                                                                        16.0),
-                                                            child: AutoSizeText(
-                                                              cardItemsItem,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Manrope',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .cultured,
-                                                                    letterSpacing:
-                                                                        1.0,
-                                                                    lineHeight:
-                                                                        1.5,
-                                                                  ),
-                                                            ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      16.0,
+                                                                      16.0,
+                                                                      16.0,
+                                                                      16.0),
+                                                          child: AutoSizeText(
+                                                            cardItemsItem,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .cultured,
+                                                                  letterSpacing:
+                                                                      1.0,
+                                                                  lineHeight:
+                                                                      1.5,
+                                                                ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ).animateOnActionTrigger(
-                                                    animationsMap[
-                                                        'containerOnActionTriggerAnimation']!,
                                                   ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        ),
+                                                ).animateOnActionTrigger(
+                                                  animationsMap[
+                                                      'containerOnActionTriggerAnimation']!,
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
+                            if (valueOrDefault<bool>(
+                              gameBeingPlayedRecord.leadPlayer ==
+                                      FFAppState().playerRef
+                                  ? true
+                                  : false,
+                              false,
+                            ))
+                              Align(
+                                alignment: AlignmentDirectional(0.00, 1.00),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 0.0, 8.0),
+                                  child: Container(
+                                    height: 40.0,
+                                    decoration: BoxDecoration(),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
+                                    child: Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 1.00),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            flex: 2,
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                await widget.beingPlayedRef!.update(
+                                                    createBeingPlayedRecordData(
+                                                  status: 'Ended',
+                                                ));
+
+                                                context.pushNamed(
+                                                  'Summary',
+                                                  queryParameters: {
+                                                    'beingPlayedRef':
+                                                        serializeParam(
+                                                      widget.beingPlayedRef,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                    'color': serializeParam(
+                                                      columnCardsRecord.color,
+                                                      ParamType.Color,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              text: 'Finish Game',
+                                              icon: FaIcon(
+                                                FontAwesomeIcons.flagCheckered,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                size: 18.0,
+                                              ),
+                                              options: FFButtonOptions(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        1.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 8.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Manrope',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                          ),
+                                        ]
+                                            .divide(SizedBox(width: 8.0))
+                                            .addToStart(SizedBox(width: 32.0))
+                                            .addToEnd(SizedBox(width: 32.0)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             if (!valueOrDefault<bool>(
                               gameBeingPlayedRecord.leadPlayer ==
                                       FFAppState().playerRef
@@ -502,108 +600,27 @@ class _GameWidgetState extends State<GameWidget> with TickerProviderStateMixin {
                                             ),
                                           ),
                                         ),
+                                        if (valueOrDefault<bool>(
+                                          gameBeingPlayedRecord.status ==
+                                                  'Ended'
+                                              ? true
+                                              : false,
+                                          false,
+                                        ))
+                                          wrapWithModel(
+                                            model: _model.endGameModel,
+                                            updateCallback: () =>
+                                                setState(() {}),
+                                            child: EndGameWidget(
+                                              beingPlayedRef:
+                                                  widget.beingPlayedRef!,
+                                              cardsDocRef: widget.cardsDoc!,
+                                            ),
+                                          ),
                                       ]
                                           .divide(SizedBox(width: 8.0))
                                           .addToStart(SizedBox(width: 32.0))
                                           .addToEnd(SizedBox(width: 32.0)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if (valueOrDefault<bool>(
-                              gameBeingPlayedRecord.leadPlayer ==
-                                      FFAppState().playerRef
-                                  ? true
-                                  : false,
-                              false,
-                            ))
-                              Align(
-                                alignment: AlignmentDirectional(0.00, 1.00),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 8.0),
-                                  child: Container(
-                                    height: 40.0,
-                                    decoration: BoxDecoration(),
-                                    alignment: AlignmentDirectional(0.00, 0.00),
-                                    child: Align(
-                                      alignment:
-                                          AlignmentDirectional(0.00, 1.00),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            flex: 2,
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await widget.beingPlayedRef!.update(
-                                                    createBeingPlayedRecordData(
-                                                  status: 'Ended',
-                                                ));
-
-                                                context.pushNamed(
-                                                  'Summary',
-                                                  queryParameters: {
-                                                    'beingPlayedRef':
-                                                        serializeParam(
-                                                      widget.beingPlayedRef,
-                                                      ParamType
-                                                          .DocumentReference,
-                                                    ),
-                                                  }.withoutNulls,
-                                                );
-                                              },
-                                              text: 'Finish Game',
-                                              icon: FaIcon(
-                                                FontAwesomeIcons.flagCheckered,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                size: 18.0,
-                                              ),
-                                              options: FFButtonOptions(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        1.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 0.0, 24.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 8.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Manrope',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                        ),
-                                                elevation: 3.0,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ]
-                                            .divide(SizedBox(width: 8.0))
-                                            .addToStart(SizedBox(width: 32.0))
-                                            .addToEnd(SizedBox(width: 32.0)),
-                                      ),
                                     ),
                                   ),
                                 ),

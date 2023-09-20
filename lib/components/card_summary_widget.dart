@@ -16,12 +16,15 @@ class CardSummaryWidget extends StatefulWidget {
     required this.audio,
     required this.timestamp,
     required this.gameStartedTimestamp,
-  }) : super(key: key);
+    Color? color,
+  })  : this.color = color ?? const Color(0xFFFF0000),
+        super(key: key);
 
   final String? cardText;
   final String? audio;
   final DateTime? timestamp;
   final DateTime? gameStartedTimestamp;
+  final Color color;
 
   @override
   _CardSummaryWidgetState createState() => _CardSummaryWidgetState();
@@ -78,8 +81,14 @@ class _CardSummaryWidgetState extends State<CardSummaryWidget> {
             ),
         playbackDurationTextStyle: FlutterFlowTheme.of(context).labelSmall,
         fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-        playbackButtonColor: FlutterFlowTheme.of(context).primary,
-        activeTrackColor: FlutterFlowTheme.of(context).alternate,
+        playbackButtonColor: valueOrDefault<Color>(
+          widget.color,
+          Color(0xFFFF0000),
+        ),
+        activeTrackColor: valueOrDefault<Color>(
+          widget.color,
+          Color(0xFFFF0000),
+        ),
         elevation: 4.0,
         playInBackground: PlayInBackground.disabledRestoreOnForeground,
       ),

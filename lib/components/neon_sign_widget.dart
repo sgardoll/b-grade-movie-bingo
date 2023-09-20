@@ -79,7 +79,9 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(25.0),
-                      child: Container(
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 100),
+                        curve: Curves.bounceOut,
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: MediaQuery.sizeOf(context).height * 1.0,
                         decoration: BoxDecoration(
@@ -106,7 +108,9 @@ class _NeonSignWidgetState extends State<NeonSignWidget> {
             ),
             child: Align(
               alignment: AlignmentDirectional(0.00, 1.00),
-              child: Container(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 100),
+                curve: Curves.bounceOut,
                 width: MediaQuery.sizeOf(context).width * 1.0,
                 height: 100.0,
                 decoration: BoxDecoration(

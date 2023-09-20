@@ -23,10 +23,13 @@ class JoinWidget extends StatefulWidget {
   const JoinWidget({
     Key? key,
     String? joinCode,
+    Color? color,
   })  : this.joinCode = joinCode ?? 'IIIII',
+        this.color = color ?? const Color(0xFFFF0000),
         super(key: key);
 
   final String joinCode;
+  final Color color;
 
   @override
   _JoinWidgetState createState() => _JoinWidgetState();
@@ -51,8 +54,8 @@ class _JoinWidgetState extends State<JoinWidget> {
     });
 
     _model.textFieldJoinCodeController ??= TextEditingController(text: () {
-      if (_model.qrScanOutput != null && _model.qrScanOutput != '') {
-        return _model.qrScanOutput;
+      if (_model.joinCode != 'IIIII') {
+        return _model.joinCode;
       } else if (_model.joinCode == 'IIIII') {
         return '';
       } else {
@@ -99,7 +102,10 @@ class _JoinWidgetState extends State<JoinWidget> {
             'Join A Game',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: valueOrDefault<Color>(
+                    widget.color,
+                    Color(0xFFFF0000),
+                  ),
                   fontSize: 22.0,
                 ),
           ),
@@ -148,13 +154,6 @@ class _JoinWidgetState extends State<JoinWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: '5 digit join code',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -245,9 +244,11 @@ class _JoinWidgetState extends State<JoinWidget> {
                                     ScanMode.QR,
                                   );
 
-                                  setState(() {
-                                    _model.joinCode = _model.qrScanOutput;
-                                  });
+                                  if (_model.qrScanOutput != '-1') {
+                                    setState(() {
+                                      _model.joinCode = _model.qrScanOutput;
+                                    });
+                                  }
 
                                   setState(() {});
                                 },
@@ -306,11 +307,17 @@ class _JoinWidgetState extends State<JoinWidget> {
                                         child: GestureDetector(
                                           onTap: () => FocusScope.of(context)
                                               .requestFocus(_model.unfocusNode),
-                                          child: StartEnterNameWidget(),
+                                          child: StartEnterNameWidget(
+                                            color: valueOrDefault<Color>(
+                                              widget.color,
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
                                         ),
                                       );
                                     },
-                                  ).then((value) => setState(
+                                  ).then((value) => safeSetState(
                                       () => _model.leadPlayerNameJoin = value));
 
                                   await _model.findBeingPlayed2!.reference
@@ -341,6 +348,14 @@ class _JoinWidgetState extends State<JoinWidget> {
                                         'cardGameRef': serializeParam(
                                           _model.findBeingPlayed2?.cards,
                                           ParamType.DocumentReference,
+                                        ),
+                                        'color': serializeParam(
+                                          valueOrDefault<Color>(
+                                            widget.color,
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                          ParamType.Color,
                                         ),
                                       }.withoutNulls,
                                       extra: <String, dynamic>{
@@ -392,6 +407,7 @@ class _JoinWidgetState extends State<JoinWidget> {
                               text: 'JOIN',
                               icon: Icon(
                                 Icons.group_add_sharp,
+                                color: FlutterFlowTheme.of(context).cultured,
                                 size: 24.0,
                               ),
                               options: FFButtonOptions(
@@ -401,13 +417,13 @@ class _JoinWidgetState extends State<JoinWidget> {
                                     0.0, 0.0, 0.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 8.0, 0.0),
-                                color: FlutterFlowTheme.of(context).secondary,
+                                color: widget.color,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
                                       fontFamily: 'Neon Glow',
                                       color:
-                                          FlutterFlowTheme.of(context).primary,
+                                          FlutterFlowTheme.of(context).cultured,
                                       fontSize: 30.0,
                                       useGoogleFonts: false,
                                     ),

@@ -1,11 +1,11 @@
 import '/backend/backend.dart';
 import '/components/players_widget.dart';
-import '/components/start_game_widget.dart';
 import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/navigator_widgets/start_game/start_game_widget.dart';
 import '/flutter_flow/admob_util.dart' as admob;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +22,14 @@ class WaitingWidget extends StatefulWidget {
     required this.playerRef,
     required this.beingPlayedDoc,
     required this.cardGameRef,
-  }) : super(key: key);
+    Color? color,
+  })  : this.color = color ?? const Color(0xFFFF0000),
+        super(key: key);
 
   final DocumentReference? playerRef;
   final BeingPlayedRecord? beingPlayedDoc;
   final DocumentReference? cardGameRef;
+  final Color color;
 
   @override
   _WaitingWidgetState createState() => _WaitingWidgetState();
@@ -112,7 +115,7 @@ class _WaitingWidgetState extends State<WaitingWidget> {
                 'Waiting Room',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Outfit',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: widget.color,
                       fontSize: 22.0,
                     ),
               ),
@@ -160,9 +163,22 @@ class _WaitingWidgetState extends State<WaitingWidget> {
                     ))
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
+                            16.0, 0.0, 16.0, 8.0),
                         child: Text(
-                          'Waiting for team lead to start the movie.\n\nYour game will begin when they hit the start button.',
+                          'Please wait...',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context).titleLarge,
+                        ),
+                      ),
+                    if (valueOrDefault<bool>(
+                      widget.beingPlayedDoc?.status == 'Waiting',
+                      true,
+                    ))
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 16.0),
+                        child: Text(
+                          'Your game will begin when the team leader hits the start button.',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context)
                               .titleMedium

@@ -22,9 +22,12 @@ class SummaryWidget extends StatefulWidget {
   const SummaryWidget({
     Key? key,
     required this.beingPlayedRef,
-  }) : super(key: key);
+    Color? color,
+  })  : this.color = color ?? const Color(0xFFFF0000),
+        super(key: key);
 
   final DocumentReference? beingPlayedRef;
+  final Color color;
 
   @override
   _SummaryWidgetState createState() => _SummaryWidgetState();
@@ -119,7 +122,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                   color: Colors.transparent,
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.00, -2.00),
+                                  alignment: AlignmentDirectional(0.00, -3.00),
                                   child: wrapWithModel(
                                     model: _model.neonSignModel,
                                     updateCallback: () => setState(() {}),
@@ -128,8 +131,7 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                       signText: 'RESULTS',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
-                                      signBgColor: FlutterFlowTheme.of(context)
-                                          .secondary,
+                                      signBgColor: widget.color,
                                     ),
                                   ).animateOnPageLoad(animationsMap[
                                       'neonSignOnPageLoadAnimation']!),
@@ -192,135 +194,6 @@ class _SummaryWidgetState extends State<SummaryWidget>
                                                   summaryBeingPlayedRecord
                                                       .timeStarted!,
                                             ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Your Group Selected',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Manrope',
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                    ),
-                                  ),
-                                  Builder(
-                                    builder: (context) {
-                                      final friendsSelections =
-                                          summaryBeingPlayedRecord
-                                              .playerSelections
-                                              .where((e) =>
-                                                  e.player !=
-                                                  FFAppState().playerRef)
-                                              .toList();
-                                      return ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: friendsSelections.length,
-                                        itemBuilder:
-                                            (context, friendsSelectionsIndex) {
-                                          final friendsSelectionsItem =
-                                              friendsSelections[
-                                                  friendsSelectionsIndex];
-                                          return StreamBuilder<PlayersRecord>(
-                                            stream: PlayersRecord.getDocument(
-                                                friendsSelectionsItem.player!),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child: SpinKitRipple(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 50.0,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              final columnPlayersRecord =
-                                                  snapshot.data!;
-                                              return Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    '${columnPlayersRecord.playerName} \'s Selections',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyLarge,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 8.0),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final playSelections =
-                                                            summaryBeingPlayedRecord
-                                                                .playerSelections
-                                                                .where((e) =>
-                                                                    e.player ==
-                                                                    friendsSelectionsItem
-                                                                        .player)
-                                                                .toList();
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              playSelections
-                                                                  .length,
-                                                          itemBuilder: (context,
-                                                              playSelectionsIndex) {
-                                                            final playSelectionsItem =
-                                                                playSelections[
-                                                                    playSelectionsIndex];
-                                                            return Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          0.0,
-                                                                          16.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                friendsSelectionsItem
-                                                                    .cardText,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Manrope',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                    ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
                                           );
                                         },
                                       );

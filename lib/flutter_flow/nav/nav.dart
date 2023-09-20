@@ -46,10 +46,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         child: appStateNotifier.showSplashImage
             ? Builder(
                 builder: (context) => Container(
-                  color: Color(0xFF132133),
+                  color: Colors.transparent,
                   child: Image.asset(
-                    'assets/images/6D-splash.png',
-                    fit: BoxFit.contain,
+                    'assets/images/7splash.jpg',
+                    fit: BoxFit.cover,
                   ),
                 ),
               )
@@ -62,10 +62,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: Color(0xFF132133),
+                    color: Colors.transparent,
                     child: Image.asset(
-                      'assets/images/6D-splash.png',
-                      fit: BoxFit.contain,
+                      'assets/images/7splash.jpg',
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )
@@ -85,6 +85,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ParamType.DocumentReference, false, ['players']),
             cardGameRef: params.getParam(
                 'cardGameRef', ParamType.DocumentReference, false, ['cards']),
+            color: params.getParam('color', ParamType.Color),
           ),
         ),
         FFRoute(
@@ -92,6 +93,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/join/:joinCode',
           builder: (context, params) => JoinWidget(
             joinCode: params.getParam('joinCode', ParamType.String),
+            color: params.getParam('color', ParamType.Color),
           ),
         ),
         FFRoute(
@@ -108,6 +110,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 params.getParam('beingPlayedDoc', ParamType.Document),
             cardGameRef: params.getParam(
                 'cardGameRef', ParamType.DocumentReference, false, ['cards']),
+            color: params.getParam('color', ParamType.Color),
           ),
         ),
         FFRoute(
@@ -126,6 +129,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SummaryWidget(
             beingPlayedRef: params.getParam('beingPlayedRef',
                 ParamType.DocumentReference, false, ['beingPlayed']),
+            color: params.getParam('color', ParamType.Color),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
